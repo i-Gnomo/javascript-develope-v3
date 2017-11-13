@@ -1,0 +1,38 @@
+<html>
+<head>
+<meta charset="utf-8" />
+<title>dom</title>
+</head>
+<body>
+	<div>DOM文档对象模型是针对html和xml文档的一个api应用程序编程接口</div>
+	<p>html页面中文档元素适中都是&lt;html&gt;</p>
+	<ul>
+		<li>元素节点</li>
+		<li>特性节点</li>
+		<li>文档类型节点</li>
+		<li>注释节点</li>
+		<li>共12种节点类型</li>
+	</ul>
+<script>
+//Node接口， 除ie，其他所有浏览器都可访问，js中所有节点都继承自Node类型
+//每个节点都有nodeType属性，表明节点的类型
+//表示节点类型的12个常量
+／*
+Node.ELEMENT_NODE(1)
+Node.ATTRIBUTE_NODE(2)
+Node.TEXT_NODE(3)
+Node.CDATA_SECTION_NODE(4)
+Node.ENTITY_REFERENCE_NODE(5)
+Node.ENTITY_NODE(6)
+Node.PROCESSING_INSTRUCTION_NODE(7)
+Node.COMMENT_NODE(8)
+Node.DOCUMENT_NODE(9)
+Node.DOCUMENT_TYPE_NODE(10)
+Node.DOCUMENT_FRAGMENT_NODE(11)
+Node.NOTATION_NODE(12)
+*／
+//并不是所有节点类型都受到web浏览器的支持
+//最常用的是元素节点和文本节点
+</script>
+</body>
+</html>
