@@ -1,3 +1,4 @@
+<!--first comment-->
 <html>
 <head>
 <meta charset="utf-8" />
@@ -7,6 +8,28 @@
 
 <script>
 //Document类型
+var html = document.documentElement;//取得对html的引用；all browser
+console.log(html === document.childNodes[0]);
+console.log(html === document.firstChild);
+var body = document.body;//取得对body的引用；all browser
+
+var doctype = document.doctype;//取得对!DOCTYPE的引用
+console.log(document.childNodes[0]); //<!--first comment-->
+// console.log(document.childNodes[1]);
+
+//获取文档信息
+var originalTitle = document.title;
+console.log(originalTitle);
+document.title = "my new page";
+console.log(document.title);
+
+var url = document.URL;//获取完整的URL
+var domain = document.domain;//取得域名
+var referrer = document.referrer; //获取来源页面的URL
+console.log(url+'-'+domain+'-'+referrer);
+//由于跨域安全限制 来自不同的子域的页面无法通过javascript通信，
+//如果将每个页面的document.domain设置为相同的值，这些页面就可以互相访问对方包含的javascript对象了
+
 
 //Element
 
@@ -25,3 +48,4 @@
 </script>
 </body>
 </html>
+<!--last comment-->
