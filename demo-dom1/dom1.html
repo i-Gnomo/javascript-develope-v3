@@ -42,8 +42,10 @@ if(mynode.nodeType == 1){
 	console.log('与数字值比较判断节点类型 在所有浏览器中适用');
 }
 
+
 //NodeList
 console.log(mynode.childNodes.length);
+console.log(mynode.children.length); //children
 console.log(mynode.childNodes[0]);
 console.log(mynode.childNodes.item(1));
 
@@ -61,8 +63,14 @@ function convertToArray(nodes){
 	return array;
 }
 
+//childNodes和children
+//childNodes 标准属性 返回Nodelist原型 返回指定元素的所有子元素集合 包括HTML节点 属性节点和文本节点
 var nodeArray = convertToArray(mynode.childNodes);
 console.log(nodeArray);
+
+//children非标准属性 返回HTMLCollection原型 返回指定元素的所有子元素集合 包括HTML节点不包括 文本节点等
+var childsArray = convertToArray(document.body.children);
+console.log(childsArray);
 
 //节点关系
 //parentNode
