@@ -36,8 +36,9 @@ function centerImg(){
 		if(utils.isDIV(imgs[i].parentNode)){
 			var prevnode = imgs[i].previousSibling,
 				nextnode = imgs[i].nextSibling;
-				// console.log(prevnode);
-			if((prevnode!=null && utils.replaceEmpty(prevnode.nodeValue)!='') || (nextnode!=null && utils.replaceEmpty(nextnode.nodeValue)!='')){
+			var previsNdv = prevnode!=null? (prevnode.nodeType!=3?prevnode.innerHTML:prevnode.nodeValue):'';
+                        var nextisNdv = nextnode!=null? (nextnode.nodeType!=3?nextnode.innerHTML:nextnode.nodeValue):'';
+			if((previsNdv!=''&& previsNdv!='<br>') || (nextisNdv !=''&& nextisNdv !='<br>')){
 				utils.setImgCenter(imgs[i]);
 			}else{
 				imgs[i].parentNode.style.textAlign = 'center';
