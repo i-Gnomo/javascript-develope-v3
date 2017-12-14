@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>模拟jsonp请求</title>
+</head>
+<body>
+<script type="text/javascript">
+//模拟jsonp请求
+var cbkList = {};
+function JsonpFun(url,args,succ,fail){
+	var nArr = new Array();
+	for(var i in args){
+		nArr.push(i+'='+ encodeURIComponent(args[i]));
+	}
+	var cbk_n = 'cbk_'+ new Date().getTime();
+	nArr.push('callback=cbkList.'+cbk_n);
+	cbkList[cbk_n] = succ;
+	var newUrl = url+'?'+nArr.join('&');
+
+	var _script = document.createElement('script');
+        _script.src = newUrl;
+        _script.async = true;
+        _script.defer = true;
+        _script.setAttribute('id', 'sc_' + cbk_n);
+        _script.onerror = function() {
+            fail && fail();
+            document.body.setAttribute("class","fail");
+        };
+        document.head.appendChild(_script);
+    
+    setTimeout(function() {
+    	document.head.removeChild(document.getElementById('sc_'+cbk_n));
+        cbkList[cbk_n] = null;
+        try {
+            delete cbkList[cbk_n];
+        } catch(e) {
+            ctrl.log(e);
+        }
+    }, 10000);
+}
+JsonpFun('http://127.0.0.1:3366/setCallTrans',{
+	phone: '',
+	Lid:'lid_1513214334435'
+	}, function(result) {
+       console.log('已打开自检工具！' + JSON.stringify(result));
+	});
+</script>
+</body>
+</html>
