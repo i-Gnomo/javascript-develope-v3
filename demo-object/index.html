@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>object</title>
+</head>
+<body>
+	<fieldset>
+	    <legend>内置对象</legend>
+
+	</fieldset>
+	<fieldset>
+	    <legend>宿主对象</legend>
+
+	</fieldset>
+	<fieldset>
+	    <legend>自定义对象</legend>
+
+	</fieldset>
+	<fieldset>
+	    <legend>自有属性</legend>
+
+	</fieldset>
+	<fieldset>
+	    <legend>继承属性</legend>
+
+	</fieldset>
+
+<!--<div class="output"></div>-->
+<script type="text/javascript">
+	// var output = document.querySelector('.output');
+	// output.innerHTML = '';
+	// var i = 10;
+	// while(i>=0){
+	// 	var para = document.createElement('p');  
+	// 	if(i === 10){
+	// 		para.textContent = 'Countdown '+i;
+	// 	}else if(i === 0){
+	// 		para.textContent = 'Blast off!';
+	// 	}else{
+	// 		para.textContent = i;
+	// 	}
+	// 	output.appendChild(para);
+	// 	i--;
+	// }
+
+	//slice splice split三者的区别
+	//Arry.prototype.slice(index,count)
+	//从index索引截取count数的内容 返回新数组不改变自身
+	var myArray1 = ['a','b','c','d','e'];
+	console.log(myArray1.slice(0,3));
+	console.log(myArray1);
+
+	//Arry.prototype.splice(index,count,newitems)
+	//从index增加/删除count数的内容 newitems为新增的items 返回删除的部分 数组被改变
+	var myArray2 = ['a','b','c','d','e'];
+	console.log(myArray2.splice(1,2,'f'));
+	console.log(myArray2);
+
+	//String.split(separate); 讲字符串按照特殊字符截取为数组形式返回 原字符串不改变
+	var myStr = 'how are you?';
+	console.log(myStr.split(" "));
+	console.log(myStr);
+
+	//对象
+
+	//内置对象
+
+
+</script>
+</body>
+</html>

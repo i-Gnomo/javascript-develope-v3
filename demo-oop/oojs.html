@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Object-oriented JavaScript example</title>
+</head>
+
+<body>
+  <div>
+    <label for="jscode">Enter code:</label>
+    <input type="text" id="jscode">
+    <button>Submit code</button>
+  </div>
+
+  <p></p>
+</body>
+
+<script>
+  var input = document.querySelector('input');
+  var btn = document.querySelector('button');
+  var para = document.querySelector('p');
+
+  btn.onclick = function() {
+    var code = input.value;
+    para.textContent = eval(code);
+  }
+
+  //创建对象实例
+  //(1)字面量表示法
+  var myPerson = {
+    name:'sunshine',
+    greeting: function(){
+      console.log('hello!'+ this.name);
+    }
+  }
+
+  //(2)构造函数名称首字母大写
+  function Person(name){
+    this.name = name;
+    this.greeting = function(){
+      console.log('hello~ welcome!'+ this.name);
+    }
+  }
+  var person1 = new Person('lily');
+  var person2 = new Person('lisa');
+
+  //(3)Object构造函数
+  var person3 = new Object();
+  person3.name = 'lakalaka';
+  person3['age'] = 19;
+  person3.greeting = function(){
+    console.log('hello~ person3!'+ this.name);
+  }
+  //或者
+  var person4 = new Object({
+    name : 'Chris',
+    age : 38,
+    greeting : function() {
+      console.log('Hi! I\'m ' + this.name + '.');
+    }
+  })
+  //或者
+  var person5 = Object.create(person4);
+  person5.greeting();
+
+  //JavaScript对象中属性的getter和setter方法 存取器属性
+  var person6 = {
+    name:'boom',
+    get name(){
+      return 'shakalaka';
+    }
+  }
+  person6.name = 'nannana';
+  console.log(person6.name);
+
+  var person7 = {
+    name:'boom',
+    get name(){
+      return this._n_;
+    },
+    set name(name){
+      this._n_ = name;
+    },
+    sub: function(a,b){
+      return a+b;
+    }
+  }
+  person7.name = 'nanana';
+  console.log(person7.name);
+  var person8 = Object.create(person7);
+  console.log(person8.name);
+  console.log(person8.__proto__);
+  
+  //原型链(prototype chain) 一个对象会拥有定义在其他对象中的属性和方法
+  //对象原型与构造函数的prototype属性的区别
+
+  //所有对象
+  console.log(Object.getPrototypeOf(person8));//=>相同console.log(person8.__proto__);原型
+  console.log(Object.getPrototypeOf(person8) === Object.prototype); //非构造函数 false
+
+  //构造函数
+  console.log(Object.getPrototypeOf(new Person()));//=>相同console.log(Person.prototype);
+  console.log(Person.prototype.constructor === Person);//=>相同console.log(Person);
+  console.log(Person.prototype.constructor === person1.constructor);//true
+  //构造函数Person的属性prototype指向该对象的原型
+  var obj1 = new Object();
+  console.log(Object.getPrototypeOf(obj1) === Object.prototype); //构造函数 true
+  console.log(Object.prototype.constructor === Object);
+  console.log(Object.prototype === obj1.__proto__);
+  console.log(person1.__proto__.__proto__);
+
+  var arr1 = ['1','2','3'];
+
+  //判断数据类型
+  //基础
+  console.log(typeof arr1); //object
+  console.log(arr1 instanceof Array); //true 判断Array.prototype是否在arr1的原型链
+  console.log(Array.prototype.isPrototypeOf(arr1)); //true 判断arr1的原型链上是否存在Array原型
+
+  //判断对象属性是否存在
+  console.log(person1.hasOwnProperty('name'));
+  console.log('name' in person1);
+  //为构造器的prototype添加新方法setName
+  Person.prototype.setName = function(_n){
+    this.name = _n;
+  }
+
+  console.log(person1.hasOwnProperty('setName')); //false
+  console.log(Person.prototype.hasOwnProperty('setName')); //true
+  console.log('setName' in person1); //true
+  if(!person1.hasOwnProperty('setName') && 'setName' in person1){
+    console.log('属性setName方法在person1的原型上');
+  }
+  
+  //prototype 属性大概是 JavaScript 中最容易混淆的名称之一。
+  //你可能会认为，这个属性指向当前对象的原型对象，其实不是（还记得么？原型对象是一个内部对象，应当使用 __proto__ 访问）。
+  //prototype 属性包含（指向）一个对象，你在这个对象中定义需要被继承的成员。
+
+  console.log(Person.prototype.constructor);
+  console.log(new person1.constructor('lingling'));// => console.log(person1);
+  console.log(person1.constructor.name);
+  console.log(person7.constructor); // => console.log(Object.prototype.constructor);
+  person1.setName('newname');
+  console.log(person1.name);
+
+</script>
+</html>

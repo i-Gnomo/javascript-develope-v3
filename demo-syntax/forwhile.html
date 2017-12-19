@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>循环</title>
+	<style>
+	fieldset{border-color:#eee;}legend{color:blue;font-weight:bold;}
+	</style>
+</head>
+<body>
+	<fieldset>
+		<legend>while</legend>
+		<div class="output"></div>
+	</fieldset>
+	<fieldset>
+		<legend>do while</legend>
+		<div class="admitted"></div>
+		<div class="refused"></div>
+	</fieldset>
+<script type="text/javascript">
+	var output = document.querySelector('.output');
+	output.innerHTML = '';
+	var i = 10;
+	while(i>=0){
+		var para = document.createElement('p');  
+		if(i === 10){
+			para.textContent = 'Countdown '+i;
+		}else if(i === 0){
+			para.textContent = 'Blast off!';
+		}else{
+			para.textContent = i;
+		}
+		output.appendChild(para);
+		i--;
+	}
+
+	var people = ['Chris', 'Anne', 'Colin', 'Terri', 'Phil', 'Lola', 'Sam', 'Kay', 'Bruce'];
+	var admitted = document.querySelector('.admitted');
+	var refused = document.querySelector('.refused');
+	admitted.textContent = 'Admit: ';
+	refused.textContent = 'Refuse: '
+	var i = 0;
+	do{
+		if(people[i] === 'Phil' || people[i] === 'Lola'){
+			refused.textContent += people[i]+',';
+		}else{
+			admitted.textContent += people[i]+',';
+		}
+		i++;
+	}while(i<people.length);
+	admitted.textContent = admitted.textContent.slice(0,admitted.textContent.length-2)+'.';
+	refused.textContent = refused.textContent.slice(0,refused.textContent.length-2)+'.';
+
+</script>
+</body>
+</html>
