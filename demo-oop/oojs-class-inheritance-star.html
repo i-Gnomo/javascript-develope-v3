@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Object-oriented JavaScript inheritance</title>
+  </head>
+
+  <body>
+    <div>
+      <label for="jscode">Enter code:</label>
+      <input type="text" id="jscode">
+      <button>Submit code</button>
+    </div>
+
+    <p></p>
+  </body>
+
+    <script>
+      var input = document.querySelector('input');
+      var btn = document.querySelector('button');
+      var para = document.querySelector('p');
+
+      btn.onclick = function() {
+        var code = input.value;
+        para.textContent = eval(code);
+      }
+
+      function Person(first, last, age, gender, interests) {
+        this.name = {
+          first,
+          last
+        };
+        this.age = age;
+        this.gender = gender;
+        this.interests = interests;
+
+        // this.tag = 'tag';
+      };
+
+      Person.prototype.bio = function() {
+        // First define a string, and make it equal to the part of
+        // the bio that we know will always be the same.
+        var string = this.name.first + ' ' + this.name.last + ' is ' + this.age + ' years old. ';
+        // define a variable that will contain the pronoun part of
+        // the sencond sentence
+        var pronoun;
+
+        // check what the value of gender is, and set pronoun
+        // to an appropriate value in each case
+        if(this.gender === 'male' || this.gender === 'Male' || this.gender === 'm' || this.gender === 'M') {
+          pronoun = 'He likes ';
+        } else if(this.gender === 'female' || this.gender === 'Female' || this.gender === 'f' || this.gender === 'F') {
+          pronoun = 'She likes ';
+        } else {
+          pronoun = 'They like ';
+        }
+
+        // add the pronoun string on to the end of the main string
+        string += pronoun;
+
+        // use another conditional to structure the last part of the
+        // second sentence depending on whether the number of interests
+        // is 1, 2, or 3
+        if(this.interests.length === 1) {
+          string += this.interests[0] + '.';
+        } else if(this.interests.length === 2) {
+          string += this.interests[0] + ' and ' + this.interests[1] + '.';
+        } else {
+          // if there are more than 2 interests, we loop through them
+          // all, adding each one to the main string followed by a comma,
+          // except for the last one, which needs an and & a full stop
+          for(var i = 0; i < this.interests.length; i++) {
+            if(i === this.interests.length - 1) {
+              string += 'and ' + this.interests[i] + '.';
+            } else {
+              string += this.interests[i] + ', ';
+            }
+          }
+        }
+
+        // finally, with the string built, we alert() it
+        alert(string);
+      };
+
+      Person.prototype.greeting = function() {
+        alert('Hi! I\'m ' + this.name.first + '.');
+      };
+
+      Person.prototype.farewell = function() {
+        alert(this.name.first + ' has left the building. Bye for now!');
+      }
+
+      Person.prototype.settag = function(){
+        alert('what\'s my tag?');
+      }
+
+      var person1 = new Person('Tammi', 'Smith', 17, 'female', ['music', 'skiing', 'kickboxing']);
+
+      //call或apply方式 + 原型链继承 =>混合方式继承
+      function Teacher(first, last, age, gender, interests, subject){
+        // Person.call(this);
+        Person.call(this, first, last, age, gender, interests); //call方式继承 继承对象属性
+        this.subject = subject;
+      }
+      //Teacher.prototype = new Person(); //原型链继承 继承Person.prototype的所有方法和属性
+      Teacher.prototype = Object.create(Person.prototype); //通过create将Person的原型复制给Teacher的原型
+      Teacher.prototype.constructor = Teacher; //Teacher.prototype的构造函数指向Teacher()函数
+      //不打乱继承的结构
+      Teacher.prototype.greeting = function(){
+        var prefix;
+
+        if(this.gender === 'male' || this.gender === 'Male' || this.gender === 'm' || this.gender === 'M') {
+          prefix = 'Mr.';
+        } else if(this.gender === 'female' || this.gender === 'Female' || this.gender === 'f' || this.gender === 'F') {
+          prefix = 'Mrs.';
+        } else {
+          prefix = 'Mx.';
+        }
+
+        alert('Hello. My name is ' + prefix + ' ' + this.name.last + ', and I teach ' + this.subject + '.');
+      }
+      Teacher.prototype.settag = null;
+
+      var teacher1 = new Teacher('Shaoxuan', 'Zhang', 27, 'female', ['music', 'swimming', 'talking'], 'Chinese');
+
+      //无参数构造函数继承
+      function Brick(){
+        this.width = 10;
+        this.height = 20;
+      }
+      function BlueGlassBrick(){
+        Brick.call(this);
+        this.opacity = 0.5;
+        this.color = 'blue';
+      }
+      var blueBrick = new BlueGlassBrick();
+      console.log(blueBrick.width);//10
+      console.log(blueBrick.height);//20
+
+      var name = 'zsx'
+      function hello(){
+        alert(name+' say hello!');
+      }
+      console.log(Brick.prototype.constructor.name);
+      //__proto__、prototype和constructor的区别
+      //__proto__和constructor是所有对象都有的属性 prototype是只有函数才有的属性
+      console.log('------分割线------');
+      console.log(name.__proto__);
+      console.log(hello.__proto__);
+      console.log(Brick.__proto__);
+      console.log(BlueGlassBrick.__proto__);
+      console.log(blueBrick.__proto__);
+      console.log('------分割线------');
+      console.log(name.prototype); //undefined
+      console.log(hello.prototype);
+      console.log(Brick.prototype);
+      console.log(BlueGlassBrick.prototype);
+      console.log(blueBrick.prototype); //undefined
+      console.log('------分割线------');
+      console.log(name.constructor);
+      console.log(hello.constructor);
+      console.log(Brick.constructor);
+      console.log(BlueGlassBrick.constructor);
+      console.log(blueBrick.constructor);
+      console.log('------分割线------');
+      console.log(hello.prototype.constructor);
+      console.log(Brick.prototype.constructor);
+      console.log(BlueGlassBrick.prototype.constructor);
+
+      //对象成员
+
+    </script>
+</html>
