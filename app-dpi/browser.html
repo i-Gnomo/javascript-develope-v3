@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>browser</title>
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+</head>
+<body>
+
+<script type="text/javascript">
+
+/**
+ * msie firefox opr chrome(chrome&& not opr) lbbrowser猎豹
+ */
+var browser = function(){
+	/**
+	 * usetAgent判断浏览器
+	 */
+	return{
+		msie: window.navigator.userAgent.toLowerCase().match(/msie/)? true: false,
+		opera: window.navigator.userAgent.toLowerCase().match(/opr/)? true: false,
+		firefox: window.navigator.userAgent.toLowerCase().match(/firefox/)? true: false,
+		chrome: window.navigator.userAgent.toLowerCase().match(/chrome/)? true: false,
+		safari: (!this.chrome && window.navigator.userAgent.toLowerCase().match(/safari/))? true: false,
+		mobile: window.navigator.userAgent.toLowerCase().match(/iphone|ipad|ios|android|ipod/)? true: false
+	}
+}();
+console.log(browser.mobile);
+
+// document.location.assign('https://developer.mozilla.org/en-US/docs/Web/API/Location.reload');
+// console.log(location.search);
+// var matches = /(hello \S+)/.exec('This is a hello world!');
+// console.log(matches);
+// console.log(matches[1]);
+
+// !function(){
+// 	var txx = 't';
+// 	1==(txx=='t' && (location.title='https://www.baidu.com/'));
+// 	console.log(location.title);
+// }();
+
+/**
+ * 浏览器 window.navigator.userAgent
+ 	ie
+ 	Edge模式
+ 	mozilla/5.0 (windows nt 6.1; wow64; trident/7.0; slcc2; .net clr 2.0.50727; .net clr 3.5.30729; .net clr 3.0.30729; media center pc 6.0; .net4.0c; .net4.0e; rv:11.0) like gecko
+ 	普通模式
+ 	mozilla/5.0 (compatible; msie 10.0; windows nt 6.1; wow64; trident/7.0; slcc2; .net clr 2.0.50727; .net clr 3.5.30729; .net clr 3.0.30729; media center pc 6.0; .net4.0c; .net4.0e)
+
+ 	火狐浏览器
+ 	mozilla/5.0 (windows nt 6.1; win64; x64; rv:57.0) gecko/20100101 firefox/57.0
+
+ 	Opera浏览器
+ 	mozilla/5.0 (windows nt 6.1; wow64) applewebkit/537.36 (khtml, like gecko) chrome/62.0.3202.94 safari/537.36 opr/49.0.2725.64
+
+ 	谷歌浏览器
+ 	mozilla/5.0 (windows nt 6.1; win64; x64) applewebkit/537.36 (khtml, like gecko) chrome/63.0.3239.84 safari/537.36
+ 	
+ 	safari浏览器
+ 	mozilla/5.0 (windows nt 6.1; wow64) applewebkit/534.57.2 (khtml, like gecko) version/5.1.7 safari/534.57.2
+ */
+
+</script>
+</body>
+</html>

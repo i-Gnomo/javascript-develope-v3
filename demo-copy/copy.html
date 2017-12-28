@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>app</title>
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+</head>
+<body>
+<!--
+<a href="qqnews://" id="openQqnews">打开腾讯新闻</a>
+<a href="orpheus://">打开网易云音乐</a>
+<a href="sinaweibo://">打开新浪微博</a>
+<a href="taobao://">打开淘宝</a>
+-->
+<div id="yourText"></div>
+<button id="copyIt" class="btn">copy</button><br/>
+<button id="showIt" class="btn">show</button><br/>
+<input id="myText" type="text" placeholder="Paste text" onPaste="var e=this; setTimeout(function(){alert(e.value);}, 4);">
+
+<div id="testText">test text 测试文本</div>
+<script type="text/javascript">
+if(window.clipboardData){
+	console.log('IE浏览器支持window.clipboardData');
+}
+
+(function(){
+	var clipboard = {
+		copy: function(t, s, f){
+			if(window.clipboardData){
+				var _s = window.clipboardData.setData('Text', t);
+					_s? s():f();
+			}else{
+				var d = document;
+				var dom = d.createElement('div');
+					dom.innerText = t;
+					d.body.appendChild(dom);
+				var r = d.createRange();
+					r.selectNodeContents(dom);
+				var sel = window.getSelection();
+					sel.removeAllRanges();
+					sel.addRange(r);
+				try {
+					var _s = d.execCommand('copy');
+					_s? s():f();
+				} catch(e){
+					console.log(e);
+					f();
+				}
+				d.body.removeChild(dom);
+			}
+		},
+		paste: function(n, s, f){
+			function c(n){
+				var t = n;
+					t.removeAttribute("contentEditable");
+					t.blur();
+			}
+			if(window.clipboardData){
+				var _txt = window.clipboardData.getData('Text');
+					n.innerHTML = _txt;
+					_txt? s():f();
+			}else{
+					n.setAttribute("contentEditable", true);
+				var r = document.createRange();
+					r.selectNodeContents(n);
+				var sel = window.getSelection();
+					sel.removeAllRanges();
+					sel.addRange(r);
+					n.focus();
+				try {
+					var _s = document.execCommand('paste'); //所有浏览器都不支持？
+						_s? s():f();
+						c(n);
+				} catch(e){
+					console.log(e);
+					f();c(n);
+				}
+			}
+		}
+	};
+
+	document.getElementById('copyIt').onclick = function(){
+		clipboard.copy('这是一条被复制的文字',function(){ console.log('copy success');},function(){ console.log('copy unsuccess');})
+	}
+
+	document.getElementById('showIt').onclick = function(){
+		clipboard.paste(document.getElementById('yourText'),function(){ console.log('paste success'); },function(){ console.log('paste unsuccess');})
+	}
+
+})();
+
+var browser = function(){
+	/**
+	 * usetAgent判断浏览器
+	 */
+	return{
+		msie: window.navigator.userAgent.toLowerCase().match(/msie/)? true: false,
+		opera: window.navigator.userAgent.toLowerCase().match(/opr/)? true: false,
+		firefox: window.navigator.userAgent.toLowerCase().match(/firefox/)? true: false,
+		chrome: window.navigator.userAgent.toLowerCase().match(/chrome/)? true: false,
+		safari: (!this.chrome && window.navigator.userAgent.toLowerCase().match(/safari/))? true: false,
+		mobile: window.navigator.userAgent.toLowerCase().match(/iphone|ipad|ios|android|ipod/)? true: false
+	}
+}();
+
+function selectText(element) {
+    var text = document.getElementById(element);
+    if (browser.msie) {
+        var range = document.body.createTextRange();
+        range.moveToElementText(text);
+        range.select();
+    } else if (browser.safari) {
+        var selection = window.getSelection();
+        selection.setBaseAndExtent(text, 0, text, 1);
+    } else {
+        var selection = window.getSelection();
+        var range = document.createRange();
+        range.selectNodeContents(text);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+}
+
+function selectionText(){
+	var txt = document.getElementById('testText');
+	if(window.getSelection){
+		//IE8+浏览器
+		var _range = document.createRange();
+			_range.selectNodeContents(txt);
+		var sel = window.getSelection();
+			sel.removeAllRanges();
+			sel.addRange(_range);
+	}else if(document.selection){
+		//IE8及以下浏览器
+		var _range = document.selection.createRange();
+		_range.moveToElementText(txt);
+		_range.select();
+	}else{
+		//ALL IE浏览器
+		var range = document.body.createTextRange();
+		range.moveToElementText(txt);
+        range.select();
+	}
+}
+selectionText();
+
+</script>
+</body>
+</html>

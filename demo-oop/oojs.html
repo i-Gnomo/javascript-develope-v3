@@ -92,6 +92,8 @@
   console.log(person8.__proto__);
   
   //原型链(prototype chain) 一个对象会拥有定义在其他对象中的属性和方法
+  //原型链的实现方式以及成员变量如何实现继承
+
   //对象原型与构造函数的prototype属性的区别
 
   //所有对象
@@ -101,6 +103,7 @@
   //构造函数
   console.log(Object.getPrototypeOf(new Person()));//=>相同console.log(Person.prototype);
   console.log(Person.prototype.constructor === Person);//=>相同console.log(Person);
+  //Person()函数是Person.prototype的构造函数，也就是说Person===Person.prototype.constructor
   console.log(Person.prototype.constructor === person1.constructor);//true
   //构造函数Person的属性prototype指向该对象的原型
   var obj1 = new Object();
@@ -142,6 +145,51 @@
   console.log(person7.constructor); // => console.log(Object.prototype.constructor);
   person1.setName('newname');
   console.log(person1.name);
+
+  //String Date Number Array
+
+  //枚举一个对象的所有属性
+  //先定一个有继承属性的对象
+  var car = {brand:'hahaha',type:'notype',name:'noname'};
+  function UsedCar(){
+    this.isused = true;
+  }
+  UsedCar.prototype = car;
+  UsedCar.prototype.constructor = UsedCar;
+  console.log(UsedCar.prototype.constructor);
+  var yourcar = new UsedCar();
+
+  var myobj = Object.create({},{setFoo:function(){ console.log('yeyeye Object.create');}});
+      myobj.foo = 2;
+
+  //(1) for..in.. 包含原型链上的属性
+    console.log('-------------for in------------');
+    for(var item in yourcar){
+      console.log(item);
+    }
+
+  //(2) Object.keys(o) 不包含原型链上的属性
+    console.log('-------------Object.keys(o)------------');
+    console.log(Object.keys(yourcar)); //logs ["isused"]
+
+    var testobj = {200:'200haha',1:'99',7:'66'};
+    console.log(Object.keys(testobj)); //logs  ["1", "7", "200"]
+
+    console.log(Object.keys(myobj));
+
+  //(3) Object.getOwnPropertyNames(o) 无论是否可枚举 不包含原型链上的属性
+    console.log('-------------Object.getOwnPropertyNames(o)n------------');
+    console.log(yourcar.brand);
+    console.log(Object.getOwnPropertyNames(yourcar));
+
+    console.log(Object.getOwnPropertyNames(myobj).sort());
+
+  //比较对象
+  var fruit = {name: "apple"};
+  var fruitbear = {name: "apple"};
+
+  fruit == fruitbear // return false
+  fruit === fruitbear // return false
 
 </script>
 </html>
