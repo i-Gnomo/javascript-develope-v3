@@ -5,7 +5,7 @@
 <title>dom</title>
 </head>
 <body>
-Document类型
+<h2>Document类型</h2>
 <ul>
 	<li>文档的子节点</li>
 	<li>文档信息</li>
@@ -23,6 +23,9 @@ Document类型
 	<label for="blueColor"><input type="radio" name="color" value="3" id="blueColor" />蓝色</label>
 	<label for="pinkColor"><input type="radio" name="color" value="4" id="pinkColor" />粉色</label>
 </fieldset>
+
+<h2>Element类型</h2>
+<div id="myDiv"></div>
 
 <script>
 //Document类型
@@ -75,6 +78,26 @@ var typeDocument = {
 
 		/** HTMLCollection原型与NodeList原型之间的关系 **/
 
+		//特殊集合
+		console.log(document.anchors); //所有带name特性的a元素
+		console.log(document.forms); //=>document.getElementsByTagName("form")
+		console.log(document.images); //=>document.getElementsByTagName("img")
+		console.log(document.links); //所有带href属性的a元素
+
+		//DOM一致性检测
+		var hasRange = document.implementation.hasFeature('Range','2.0');
+		console.log(hasRange);
+
+		document.writeln("<strong>"+(new Date()).toString()+"</strong>");
+		document.writeln("住在市中心");
+		document.write("住在市中心");
+		
+		document.write('<script type="text/javascript" src="file.js"><\/script>');
+
+		//window.onload = function(){
+		//	document.write("HELLO WORLD!");
+		//}
+
 	}
 }
 typeDocument._html();
@@ -85,6 +108,18 @@ typeDocument.docDomain();
 typeDocument.queryElement();
 
 //Element
+var typeElement = {
+	_div: function(){
+	//nodeType = 1
+	//nodeValue = null
+		var div = document.getElementById("myDiv");
+		console.log(div.constructor); //构造函数
+		console.log(div.nodeValue); //=>null
+		console.log(div.tagName == div.nodeName);
+		console.log(div.nodeName.toLowerCase());
+	}
+}
+typeElement._div();
 
 //Text
 
