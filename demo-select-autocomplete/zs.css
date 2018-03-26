@@ -1,0 +1,191 @@
+.zs-box {
+    position: relative;
+    display: inline-block;
+    width: 148px;
+    height: 23px;
+    border: 1px solid #a9a9a9;
+    cursor: pointer;
+    font-size: 12px;
+    color: #000;
+    background-color: #fff
+}
+
+.zs-value {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 90%;
+    line-height: 23px;
+    white-space: nowrap;
+    text-indent: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+.zs-value:focus {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-modify: read-write-plaintext-only;
+    outline: 0
+}
+
+.zs-down-ico {
+    display: inline-block;
+    position: absolute;
+    right: 3px;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 6px solid #333;
+    background-color: #fff;
+    margin-top: -3px
+}
+
+.zs-disabled {
+    background-color: #f9f9f9;
+    cursor: not-allowed
+}
+
+.zs-disabled .zs-value {
+    color: #aaa
+}
+
+.zs-disabled .zs-down-ico {
+    opacity: .3;
+    filter: alpha(opacity=30)
+}
+
+.zs-list {
+    position: absolute;
+    top: 100%;
+    left: -1px;
+    margin-top: 2px;
+    padding: 0;
+    width: 100%;
+    border: 1px solid #d1dae4;
+    max-height: 192px;
+    z-index: 9999;
+    background-color: #fff;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    overflow: auto;
+    display: none;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s
+}
+
+.active-top .zs-list {
+    top: auto;
+    bottom: 100%;
+    margin-bottom: 2px
+}
+
+.zs-box.active {
+    z-index: 9999
+}
+
+.zs-box.active .zs-list {
+    margin-top: 2px;
+    display: block;
+    animation: selectmove .3s 1;
+    -webkit-animation: selectmove .3s 1
+}
+
+@keyframes selectmove {
+    from {
+        margin-top: 15px
+    }
+    to {
+        margin-top: 2px
+    }
+}
+
+@-webkit-keyframes selectmove {
+    from {
+        margin-top: 15px
+    }
+    to {
+        margin-top: 2px
+    }
+}
+
+.zs-item {
+    list-style-type: none;
+    height: 32px;
+    line-height: 32px;
+    text-indent: 3px;
+    white-space: nowrap;
+    width: 100%;
+    color: #606f7b;
+    background-color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+.zs-item:hover {
+    color: #606f7b;
+    background-color: #f2f2f2
+}
+
+.zs-item.current {
+    color: #fff;
+    background-color: #23a8eb
+}
+
+.zs-item[v=''] {
+    color: #aaa;
+    background-color: #fff
+}
+
+.zs-down-ico {
+    border: none;
+    width: 13px;
+    height: 7px;
+    background-repeat: no-repeat;
+    background-image: url(img-sp.png);
+    background-position: -225px -60px;
+    margin-right: 5px;
+    -webkit-transition: transform .3s;
+    -ms-transition: transform .3s;
+    -moz-transition: transform .3s;
+    -o-transition: transform .3s;
+    transition: transform .3s
+}
+
+.zs-box.active .zs-down-ico {
+    transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg)
+}
+
+.input-text {
+    padding: 0;
+    margin: 0;
+    width: 148px;
+    height: 23px;
+    line-height: 23px;
+    border: 1px solid #dcdcdc;
+    text-indent: 3px;
+    font-family: simsun;
+    font-size: 12px;
+    outline: 0
+}
+
+.input-text.disabled,
+.input-text[disabled] {
+    cursor: not-allowed;
+    background-color: #f9f9f9
+}
+
+.input-text.require,
+.zs-box.require,
+.zs-box.require .zs-down-ico {
+    background-color: #fff9e0
+}
