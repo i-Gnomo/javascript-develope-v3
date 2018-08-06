@@ -6,7 +6,7 @@
 <style>
     html,
     body {
-        widows: 100%;
+        width: 100%;
         overflow: hidden;
         padding: 0;
         margin: 0;
@@ -25,6 +25,8 @@
 </script>
 <script type="text/javascript">
     $(function() {
+        var svgWidth = document.body.clientWidth;
+        var svgHeight = svgWidth * 960 / 540;
         var count = 24;
         var arr = [];
         for (var a = 0; a < count; a++) {
@@ -50,8 +52,14 @@
         svghtml += '</g></svg>';
         $("#basket1").html(svghtml);
         setTimeout(function() {
-            $("#basket1").show()
+            $("#basket1").css({
+                width: svgWidth + 'px',
+                height: svgHeight + 'px'
+            }).show();
         }, 3000);
+        console.log(window.devicePixelRatio);
+        console.log('window', window.innerWidth);
+        console.log('layout', document.documentElement.clientWidth);
     })
 </script>
 
