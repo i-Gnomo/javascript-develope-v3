@@ -1,0 +1,402 @@
+@charset "UTF-8";
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  padding: 0;
+  margin: 0 auto;
+  line-height: 0;
+}
+
+div,
+p,
+ul,
+li {
+  padding: 0;
+  margin: 0;
+}
+
+* {
+  -webkit-touch-callout: none;
+  /*系统默认菜单被禁用*/
+  -webkit-user-select: none;
+  /*webkit浏览器*/
+  -khtml-user-select: none;
+  /*早期浏览器*/
+  -moz-user-select: none;
+  /*火狐*/
+  -ms-user-select: none;
+  /*IE10*/
+  user-select: none;
+}
+
+.app-handle {
+  background-color: #202238;
+}
+
+.app-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffd438;
+  z-index: 2;
+  text-align: center;
+}
+
+.app-loading svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes loadingmove {
+  0% {
+    background-position: 0 0;
+  }
+  20% {
+    background-position: -8.75rem 0;
+  }
+  40% {
+    background-position: -17.5rem 0;
+  }
+  60% {
+    background-position: -26.25rem 0;
+  }
+  80% {
+    background-position: -35rem 0;
+  }
+  100% {
+    background-position: -43.75rem 0;
+  }
+}
+
+.clockTip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6.875rem;
+  height: 3.75rem;
+  line-height: 3.125rem;
+  text-align: left;
+  text-indent: 1rem;
+  color: #ffffff;
+  background: url(../images/lasttime.png) 0 0 no-repeat;
+  background-size: 100% 100%;
+}
+
+.clockTip span {
+  display: inline-block;
+  width: 1.0625rem;
+  height: 1.5rem;
+  background: url(../images/mytimes.png) 0 0 no-repeat;
+  background-position: 0 0;
+  background-size: auto 100%;
+  margin-top: 0.75rem;
+}
+
+.clockTip span.one {
+  margin-left: -0.25rem;
+  background-position: -3.375rem 0;
+}
+
+.clockTip span.two {
+  margin-left: -1px;
+}
+
+.helpBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 5.625rem;
+  height: 2.5rem;
+  background: url(../images/help_bg.png) 0 0 no-repeat;
+  background-size: 100% 100%;
+  border: 0;
+}
+
+.score {
+  width: 6.25rem;
+  height: 7.5rem;
+  position: absolute;
+  right: -1px;
+  bottom: 0;
+  text-align: right;
+  color: #ffffff;
+}
+
+.score div.coins {
+  font-size: 0.75rem;
+  text-align: left;
+  text-indent: 2.125rem;
+  display: inline-block;
+  width: 5rem;
+  height: 2.25rem;
+  line-height: 2.25rem;
+  background: url(../images/coins.png) 0 0 no-repeat;
+  background-size: 100% 100%;
+}
+
+.score div.lastnumber {
+  font-size: 1rem;
+  text-align: center;
+  text-indent: 0.5rem;
+  display: inline-block;
+  margin-top: 0.375rem;
+  width: 6.25rem;
+  height: 3.75rem;
+  line-height: 2.25rem;
+  background: url(../images/number.png) 0 0 no-repeat;
+  background-size: 100% 100%;
+}
+
+.score em {
+  font-style: normal;
+}
+
+.intoTimes {
+  width: 6.25rem;
+  height: 3rem;
+  margin-left: -2.5rem;
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  text-align: center;
+  color: #ffffff;
+  font-size: 0.875rem;
+  line-height: 3.875rem;
+  background: url(../images/counts.png) 0 0 no-repeat;
+  background-size: 100% 100%;
+}
+
+.power {
+  position: absolute;
+  left: 1.875rem;
+  bottom: 3.75rem;
+  width: 1.875rem;
+  height: 9.375rem;
+  background: url(../images/power.png) 0 0 no-repeat;
+  background-size: 100% 100%;
+}
+
+.power .pointerw {
+  position: absolute;
+  left: 0.21875rem;
+  bottom: 0.21875rem;
+  width: 1.40625rem;
+  height: 30%;
+  background-color: #fff000;
+}
+
+.power .pointerv {
+  position: absolute;
+  left: -0.375rem;
+  bottom: 0;
+  width: 2.625rem;
+  height: 0.625rem;
+  margin-top: -0.375rem;
+  background: url(../images/powervvv.png) 0 0 no-repeat;
+  background-size: 100% 100%;
+  z-index: 1;
+}
+
+.moveTo .moveUp {
+  transform: translate(0, -8.875rem);
+}
+
+.moveTo .moveDown {
+  transform: translate(0, 0rem);
+}
+
+.dialog {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.dialog .dialog-cover {
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  opacity: .54;
+}
+
+.helpimg {
+  width: 100%;
+  height: 58%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+}
+
+.helpimg .helpimg01,
+.helpimg .helpimg02 {
+  width: 34%;
+  height: 100%;
+  display: inline-block;
+  background-image: url(../images/dialog/help01.png);
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 100% auto;
+}
+
+.helpimg .helpimg02 {
+  margin-left: 2%;
+  background-image: url(../images/dialog/help02.png);
+}
+
+.helpimg .helpimg03 {
+  width: 100%;
+  height: 18%;
+  display: block;
+  background-image: url(../images/dialog/help03.png);
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: auto 100%;
+}
+
+.know_btn {
+  position: absolute;
+  top: 76%;
+  left: 50%;
+  margin-left: -3.125rem;
+  width: 6.25rem;
+  height: 2.375rem;
+  display: inline-block;
+  background-image: url(../images/dialog/iknow.png);
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 100% auto;
+}
+
+.dialog .content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18.75rem;
+  height: 13.375rem;
+  margin-left: -9.375rem;
+  margin-top: -6.6875rem;
+  background-image: url(../images/dialog/pop.png);
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 100% auto;
+}
+
+.dialog .content h4.timeover {
+  width: 8.125rem;
+  height: 2rem;
+  margin: 2rem 6rem 0.625rem;
+  display: inline-block;
+  background-image: url(../images/dialog/gameover.png);
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 100% auto;
+}
+
+.dialog .content .fonts {
+  width: 80%;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: #6b2b0f;
+  margin: 0 auto;
+  margin-left: 20%;
+}
+
+.dialog .content .btn-bar {
+  width: 100%;
+  height: 2.25rem;
+  margin-top: 1.25rem;
+  text-align: center;
+}
+
+.dialog .content .btn-bar .again,
+.dialog .content .btn-bar .cancel {
+  width: 7.25rem;
+  height: 100%;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 100% auto;
+}
+
+.dialog .content .btn-bar .again {
+  background-image: url(../images/dialog/again.png);
+}
+
+.dialog .content .btn-bar .cancel {
+  background-image: url(../images/dialog/shop.png);
+}
+
+.dialog .content.notimes .fonts {
+  margin-top: 4.375rem;
+}
+
+.audioBox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  z-index: -1;
+}
+
+.clockTip[attr-seconds] span.one[num="0"],
+.clockTip[attr-seconds] span.two[num="0"] {
+  background-position: 0 0;
+}
+
+.clockTip[attr-seconds] span.one[num="1"],
+.clockTip[attr-seconds] span.two[num="1"] {
+  background-position: -1.125rem 0;
+}
+
+.clockTip[attr-seconds] span.one[num="2"],
+.clockTip[attr-seconds] span.two[num="2"] {
+  background-position: -2.25rem 0;
+}
+
+.clockTip[attr-seconds] span.one[num="3"],
+.clockTip[attr-seconds] span.two[num="3"] {
+  background-position: -3.375rem 0;
+}
+
+.clockTip[attr-seconds] span.one[num="4"],
+.clockTip[attr-seconds] span.two[num="4"] {
+  background-position: -4.5rem 0;
+}
+
+.clockTip[attr-seconds] span.one[num="5"],
+.clockTip[attr-seconds] span.two[num="5"] {
+  background-position: -5.625rem 0;
+}
+
+.clockTip[attr-seconds] span.one[num="6"],
+.clockTip[attr-seconds] span.two[num="6"] {
+  background-position: -6.75rem 0;
+}
+
+.clockTip[attr-seconds] span.one[num="7"],
+.clockTip[attr-seconds] span.two[num="7"] {
+  background-position: -7.875rem 0;
+}
+
+.clockTip[attr-seconds] span.one[num="8"],
+.clockTip[attr-seconds] span.two[num="8"] {
+  background-position: -9rem 0;
+}
+
+.clockTip[attr-seconds] span.one[num="9"],
+.clockTip[attr-seconds] span.two[num="9"] {
+  background-position: -10.125rem 0;
+}

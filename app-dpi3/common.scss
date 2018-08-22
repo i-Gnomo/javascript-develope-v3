@@ -1,0 +1,35 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    padding: 0;
+    margin: 0 auto;
+    line-height: 0;
+}
+
+div,
+p,
+ul,
+li {
+    padding: 0;
+    margin: 0;
+}
+
+
+/*$bckcolor: #d43c33;
+.redblock {
+    width: 100%;
+    height: px2rem(64px);
+    background-color: $bckcolor;
+    span {
+        margin-left: px2rem(10px);
+        height: px2rem(64px);
+        line-height: px2rem(64px);
+        font-size: px2rem(16px);
+        color: #ffffff;
+    }
+}*/
