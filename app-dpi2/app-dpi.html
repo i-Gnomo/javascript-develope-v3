@@ -51,18 +51,19 @@
                 clearTimeout(refreshRootFont);
                 refreshRootFont = setTimeout(rootFont, 300);
             }, false);
-            win.addEventListener('pageshow', function(e) {
-                if (e.persisted) {
-                    clearTimeout(refreshRootFont);
-                    refreshRootFont = setTimeout(rootFont, 300);
-                }
-            }, false);
+            // win.addEventListener('pageshow', function(e) {
+            //     if (e.persisted) {
+            //         clearTimeout(refreshRootFont);
+            //         refreshRootFont = setTimeout(rootFont, 300);
+            //     }
+            // }, false);
         }(window, document));
     </script>
 </head>
 
 <body>
     <div class="redblock">
+        <span>网易云音乐 听见好声音</span>
     </div>
 </body>
 <script>

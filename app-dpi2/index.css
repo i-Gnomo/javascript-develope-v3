@@ -23,3 +23,51 @@ body {
   height: 64px;
   background-color: #d43c33;
 }
+
+[data-dpr="2"] .redblock {
+  height: 128px;
+}
+
+[data-dpr="3"] .redblock {
+  height: 192px;
+}
+
+.redblock span {
+  margin-left: 10px;
+  height: 64px;
+  line-height: 64px;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+[data-dpr="2"] .redblock span {
+  margin-left: 20px;
+}
+
+[data-dpr="3"] .redblock span {
+  margin-left: 30px;
+}
+
+[data-dpr="2"] .redblock span {
+  height: 128px;
+}
+
+[data-dpr="3"] .redblock span {
+  height: 192px;
+}
+
+[data-dpr="2"] .redblock span {
+  line-height: 128px;
+}
+
+[data-dpr="3"] .redblock span {
+  line-height: 192px;
+}
+
+[data-dpr="2"] .redblock span {
+  font-size: 32px;
+}
+
+[data-dpr="3"] .redblock span {
+  font-size: 48px;
+}
