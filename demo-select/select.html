@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>下拉选择demo1</title>
+    <link rel="stylesheet" href="css/select.min.css" />
+</head>
+
+<body>
+    <div class="row" style="margin: 30px;">
+        <select class="zs-select-group" name="spec" data-title="['品牌','车系','车型']" data-holder="请选择品牌/车系/车型" data-skin="select-blue w300" data-style="width:340px;"></select>
+    </div>
+    <div style="margin: 10px 30px;padding: 10px 0;">
+        <button style="margin-bottom:10px;" id="getVal">获取选中的车型id</button>
+        <button style="margin-bottom:10px;" id="getTxt">获取选中的车型名称</button>
+        <button style="margin-bottom:10px;" id="getGroup">获取选中的品牌车系车型值</button>
+        <!--在控制台查看打印的值-->
+        <br/>
+        <button style="margin-bottom:10px;" id="clearGroupVal">清空选中的数据</button>
+        <button style="margin-bottom:10px;" id="addDisabled">使下拉框不可选择</button>
+        <button style="margin-bottom:10px;" id="removeDisabled">使下拉框可以选择</button>
+    </div>
+    <div style="margin: 30px;">
+        <p style="font-size: 16px;line-height:24px; margin: 10px 0;">This is the first chapter in a step-by-step guide about main React concepts. You can find a list of all its chapters in the navigation sidebar. If you’re reading this from a mobile device, you can access the navigation by pressing the button in
+            the bottom right corner of your screen.</p>
+        <p style="font-size: 16px;line-height:24px; margin: 10px 0;">This is the first chapter in a step-by-step guide about main React concepts. You can find a list of all its chapters in the navigation sidebar. If you’re reading this from a mobile device, you can access the navigation by pressing the button in
+            the bottom right corner of your screen.</p>
+        <p style="font-size: 16px;line-height:24px; margin: 10px 0;">This is the first chapter in a step-by-step guide about main React concepts. You can find a list of all its chapters in the navigation sidebar. If you’re reading this from a mobile device, you can access the navigation by pressing the button in
+            the bottom right corner of your screen.</p>
+        <p style="font-size: 16px;line-height:24px; margin: 10px 0;">This is the first chapter in a step-by-step guide about main React concepts. You can find a list of all its chapters in the navigation sidebar. If you’re reading this from a mobile device, you can access the navigation by pressing the button in
+            the bottom right corner of your screen.</p>
+        <p style="font-size: 16px;line-height:24px; margin: 10px 0;">This is the first chapter in a step-by-step guide about main React concepts. You can find a list of all its chapters in the navigation sidebar. If you’re reading this from a mobile device, you can access the navigation by pressing the button in
+            the bottom right corner of your screen.</p>
+    </div>
+    <script src='js/jquery.js'></script>
+    <script src='js/select.js'></script>
+    <script>
+        $(function() {
+            $('.zs-select-group').initSelect([{
+                fieldValue: 'id',
+                fieldText: 'title',
+                setSelected: '33', //33
+                url: 'http://brandcheyun.caridcc.com/index/ajax/brand/type/1',
+                dataFilter: function(result) {
+                    return result['rows'];
+                }
+            }, {
+                fieldValue: 'id',
+                fieldText: 'title',
+                setSelected: '3170', //3170
+                url: 'http://brandcheyun.caridcc.com/index/ajax/brand/type/3/pid/@parentValue',
+                dataFilter: function(result) {
+                    return result['rows'];
+                }
+            }, {
+                fieldValue: 'id',
+                fieldText: 'title',
+                setSelected: '32042', //32042
+                url: 'http://brandcheyun.caridcc.com/index/ajax/brand/type/5/pid/@parentValue',
+                dataFilter: function(result) {
+                    return result['rows'];
+                },
+                dataSelected: function(elem, val, txt) {
+                    //选择车型后的回调函数
+                    // var brandId = elem.next('.select-defined').find('div[data-level=1]').data('data-checked-parms').key;
+                    // var seriesId = elem.next('.select-defined').find('div[data-level=2]').data('data-checked-parms').key;
+                    // console.log(brandId, seriesId, val, txt);
+                }
+            }]);
+
+            $('#getVal').on('click', function() {
+                var vvv = $('.zs-select-group').getSelectVal();
+                console.log('当前选中的品牌id', vvv);
+            })
+            $('#getTxt').on('click', function() {
+                var vvv = $('.zs-select-group').getSelectText();
+                console.log('当前选中的品牌title', vvv);
+            })
+            $('#getGroup').on('click', function() {
+                var vvv = $('.zs-select-group').getGroupVal();
+                console.log('当前选中的品牌车系车型', vvv);
+            })
+
+            $('#clearGroupVal').on('click', function() {
+                $('.zs-select-group').clearGroupVal();
+            })
+            $('#addDisabled').on('click', function() {
+                $('.zs-select-group').addDisabled();
+            })
+            $('#removeDisabled').on('click', function() {
+                $('.zs-select-group').removeDisabled();
+            })
+
+        })
+    </script>
+</body>
+
+</html>
