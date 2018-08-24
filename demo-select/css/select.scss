@@ -52,6 +52,7 @@ $orange-light-border: #fdd5bb;
 }
 
 .select-defined {
+    display: inline-block;
     position: relative;
     width: 220px;
     height: $n-height;
@@ -69,6 +70,10 @@ $orange-light-border: #fdd5bb;
         text-indent: 0;
         span {
             display: inline-block;
+            width: calc(100% - 30px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             margin-right: 30px;
             text-indent: 10px;
         }
@@ -103,6 +108,7 @@ $orange-light-border: #fdd5bb;
         }
         .select-defined-content {
             display: none;
+            z-index: 1;
             position: absolute;
             top: $n-height + 2;
             // transition: top .5s linear 12s;
@@ -215,6 +221,15 @@ $orange-light-border: #fdd5bb;
                                     }
                                 }
                             }
+                            &.single {
+                                height: auto;
+                                max-height: 423px;
+                                min-height: auto;
+                                overflow-y: scroll;
+                                margin-left: 0;
+                                margin-top: -10px;
+                                margin-bottom: -10px;
+                            }
                         }
                     }
                 }
@@ -239,7 +254,6 @@ $orange-light-border: #fdd5bb;
         .select-text {
             color: #aaaaaa;
             span {
-                width: 190px;
                 display: inline-block;
                 white-space: nowrap;
                 overflow: hidden;
@@ -258,10 +272,11 @@ $orange-light-border: #fdd5bb;
         }
         .select-defined-content {
             display: none;
+            z-index: 1;
             position: absolute;
             top: $n-height + 2;
             left: -1px;
-            width: $width300;
+            width: 100%;
             padding-top: $n-height;
             background-color: #ffffff;
             border: 1px $gray-color solid;
@@ -310,6 +325,7 @@ $orange-light-border: #fdd5bb;
                         }
                         dt {
                             background-color: #f7f7f7;
+                            font-weight: bold;
                         }
                         dd a {
                             color: #333333;
@@ -329,7 +345,7 @@ $orange-light-border: #fdd5bb;
                             position: absolute;
                             top: 40px;
                             left: 0;
-                            width: 45px;
+                            width: 30px;
                             a {
                                 display: block;
                                 width: 18px;
@@ -337,7 +353,7 @@ $orange-light-border: #fdd5bb;
                                 line-height: 16px;
                                 text-indent: 0;
                                 text-align: center;
-                                margin-left: 16px;
+                                margin-left: 10px;
                                 margin-bottom: 2px;
                                 @include radius3px;
                                 color: $orange-select;
@@ -353,14 +369,24 @@ $orange-light-border: #fdd5bb;
                             max-height: none;
                             min-height: 420px;
                             height: 100%;
-                            width: $width300 - 40;
+                            // width: $width300 - 40;
                             margin-left: 40px;
                             dl {
                                 &:last-child {
                                     dd a:last-child {
-                                        border-bottom: 1px #e3e2e2 dashed;
+                                        // border-bottom: 1px #e3e2e2 dashed;
+                                        border-bottom: 1px #ffffff dashed;
                                     }
                                 }
+                            }
+                            &.single {
+                                height: auto;
+                                max-height: 423px;
+                                min-height: auto;
+                                overflow-y: scroll;
+                                margin-left: 0;
+                                margin-top: -10px;
+                                margin-bottom: -10px;
                             }
                         }
                     }

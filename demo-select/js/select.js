@@ -54,24 +54,26 @@ $(function() {
             var args = arguments[0] || '';
             var _this = $(this),
                 rdid = $.randomid();
-            if (_this.attr('inited') === 'yes') { return; }
-            _this.attr({
-                'inited': 'yes',
-                'data-id': rdid
-            });
-            _this.data('data-select-level', 1);
-            _this.data('data-title', eval(_this.attr('data-title'))).removeAttr('data-title');
-            _this.after('<div id="select-' + rdid + '" class="select-defined ' + (_this.attr('data-skin') || '') + '" ' + (_this.attr('data-style') ? ('style="' + _this.attr('data-style') + '"') : ('')) + '>\
+            // if (_this.attr('inited') === 'yes') { return _this; }
+            if (!_this.attr('inited')) {
+                _this.data('data-select-level', 1);
+                _this.data('data-title', eval(_this.attr('data-title'))).removeAttr('data-title');
+                _this.after('<div id="select-' + rdid + '" class="select-defined ' + (_this.attr('data-skin') || '') + '" ' + (_this.attr('data-style') ? ('style="' + _this.attr('data-style') + '"') : ('')) + '>\
                         <div class="select-text"><span>' + (_this.attr('data-holder') || '') + '</span><i class="fa fa-angle-down ic-arrow"></i></div>\
                         <input type="hidden" name="' + (_this.attr('name') || '') + '" />\
                         <div class="select-defined-content">\
                             <div class="select-defined-title"></div>\
                         </div>\
                         </div>').removeAttr('name');
-            //设置title bar 品牌 车系 车型
-            _this.setSelectTitleBox(1);
+                //设置title bar 品牌 车系 车型
+                _this.setSelectTitleBox(1);
+                _this.attr({
+                    'inited': 'yes',
+                    'data-id': rdid
+                });
+            }
 
-            if (!args.length) return;
+            if (args == '' || !args.length) return _this;
             if (args.length > 0) {
                 _this.data('data-group', args);
                 //first init 初始化设置数据
@@ -83,7 +85,7 @@ $(function() {
             if (_this.hasClass('disabled')) {
                 __s.addClass('disabled');
             }
-            __s.on('click', '.select-text', function(e) {
+            __s.off('click').on('click', '.select-text', function(e) {
                 e.stopPropagation();
                 if ($(this).parent('.select-defined').hasClass('disabled')) {
                     return false;
@@ -101,6 +103,7 @@ $(function() {
                     __s.removeClass('active');
                 }
             });
+            return _this;
         },
         getSelectTitleBox: function() {
             return $(this).next('.select-defined').find('.select-defined-title') || $();
@@ -149,8 +152,8 @@ $(function() {
             var _this = $(this);
             var __s = _this.next('.select-defined');
             var _con = __s.find('.select-defined-content');
-            var _con__tit = __s.find('.select-defined-title');
-            var _con__dl = __s.find('.select-data-dl');
+            // var _con__tit = __s.find('.select-defined-title');
+            // var _con__dl = __s.find('.select-data-dl');
             if (args instanceof Array) {
                 if (parseInt(_this.data('data-select-level')) > 0) {
                     var now_levl = parseInt(_this.data('data-select-level'));
@@ -175,40 +178,53 @@ $(function() {
                 fieldName = props.fieldText || 'name';
             var initVal = props.setSelected || '';
 
+            function normalList(data) {
+                var _str = '';
+                $.each(data, function(_k, group) {
+                    _str += '<dl><dt>' + group[fieldName] + '</dt><dd>';
+                    if (group['list'].length > 0) {
+                        for (var i = 0; i < group['list'].length; i++) {
+                            _str += '<a href="javascript:void(0);" data-key="' + group['list'][i][fieldId] + '" data-text="' + group['list'][i][fieldName] + '" title="' + group['list'][i][fieldName] + '" ' + ((initVal == group['list'][i][fieldId]) ? 'class="active"' : '') + '>';
+                            // if (index == 2) {
+                            //     _str += '<span style="float:right;color:#d60000;padding: 0 5px;">19.80万</span>'
+                            // }
+                            _str += group['list'][i][fieldName] + '</a>';
+                        }
+                    }
+                    _str += '</dd></dl>';
+                })
+                return _str;
+            }
+
             var _str = '<div class="select-data-dl">';
             if (index == 0) {
-                // var _indexArr = $.arrayfilter($.map(data, function(a) { return a.fletter || '' }));
-                var _indexArr = $.arrayfilter($.map(data, function(a) { return a.title.substring(0, 1) || '' }));
-                _str += this.evalAbcIndex(_indexArr);
-                _str += '<div class="select-dl" data-type="' + (index - (-1)) + '">';
-                if (_indexArr.length > 0)
-                    for (var i = 0; i < _indexArr.length; i++) {
-                        _str += '<dl><dt>' + _indexArr[i] + '</dt><dd>';
-                        $.each(data, function(_i, item) {
-                            if (item['title'].substring(0, 1) == _indexArr[i]) {
-                                var fname = item[fieldName].slice(4);
-                                _str += '<a href="javascript:void(0);" data-key="' + item[fieldId] + '" data-text="' + fname + '" title="' + fname + '" ' + ((initVal == item[fieldId]) ? 'class="active"' : '') + '>' + fname + '</a>';
-                            }
-                        })
-                        _str += '</dd></dl>';
+                if (this.data("data-group").length > 1) {
+                    // var _indexArr = $.arrayfilter($.map(data, function(a) { return a.fletter || '' }));
+                    var _indexArr = $.arrayfilter($.map(data, function(a) { return a.title.substring(0, 1) || '' }));
+                    _str += this.evalAbcIndex(_indexArr);
+                    _str += '<div class="select-dl" data-type="' + (index - (-1)) + '">';
+                    if (_indexArr.length > 0) {
+                        for (var i = 0; i < _indexArr.length; i++) {
+                            _str += '<dl><dt>' + _indexArr[i] + '</dt><dd>';
+                            $.each(data, function(_i, item) {
+                                if (item['title'].substring(0, 1) == _indexArr[i]) {
+                                    var fname = item[fieldName].slice(4);
+                                    _str += '<a href="javascript:void(0);" data-key="' + item[fieldId] + '" data-text="' + fname + '" title="' + fname + '" ' + ((initVal == item[fieldId]) ? 'class="active"' : '') + '>' + fname + '</a>';
+                                }
+                            })
+                            _str += '</dd></dl>';
+                        }
                     }
-                _str += '</div>';
+                    _str += '</div>';
+                } else {
+                    _str += '<div class="select-dl single" data-type="' + (index - (-1)) + '">';
+                    _str += normalList(data);
+                    _str += '</div>';
+                }
             } else {
                 _str += '<div class="select-dl" data-type="' + (index - (-1)) + '">';
                 if (data.length > 0) {
-                    $.each(data, function(_k, group) {
-                        _str += '<dl><dt>' + group[fieldName] + '</dt><dd>';
-                        if (group['list'].length > 0) {
-                            for (var i = 0; i < group['list'].length; i++) {
-                                _str += '<a href="javascript:void(0);" data-key="' + group['list'][i][fieldId] + '" data-text="' + group['list'][i][fieldName] + '" title="' + group['list'][i][fieldName] + '" ' + ((initVal == group['list'][i][fieldId]) ? 'class="active"' : '') + '>';
-                                // if (index == 2) {
-                                //     _str += '<span style="float:right;color:#d60000;padding: 0 5px;">19.80万</span>'
-                                // }
-                                _str += group['list'][i][fieldName] + '</a>';
-                            }
-                        }
-                        _str += '</dd></dl>';
-                    })
+                    _str += normalList(data);
                 }
                 _str += '</div>';
             }
@@ -226,7 +242,7 @@ $(function() {
 
             if (index > 0) {
                 var pid = box.find('.select-box-content[data-level=' + index + ']').data('data-checked-parms');
-                pid = pid.key;
+                pid = pid.id;
                 newurl = newurl.replace('@parentValue', pid);
             }
 
@@ -247,7 +263,7 @@ $(function() {
                 } else {
                     box.append('<div class="select-box-content" data-level="' + (index - (-1)) + '">' + _this.evalGroupData(index, item, _data) + '</div>');
                 }
-                if (index === 0) {
+                if (index === 0 && _this.data("data-group").length > 1) {
                     //加载品牌数据时 将品牌索引也加载出来
                     var abc_length = $.arrayfilter($.map(_data, function(a) { return a.title.substring(0, 1) || '' })).length || 0;
                     box.find('.select-box-content[data-level=1]').css('height', abc_length * 20);
@@ -258,7 +274,7 @@ $(function() {
 
                 if (index > 0) {
                     var doselectId = box.find('.select-box-content[data-level=' + index + ']').data('data-checked-parms');
-                    doselectId = doselectId.key;
+                    doselectId = doselectId.id;
                     var initselectId = args[1][index - 1].setSelected;
                     if (doselectId != initselectId) {
                         _this.clearSelectVal();
@@ -295,8 +311,8 @@ $(function() {
 
                         var __s = _ele.next('.select-defined');
                         __s.find('.select-box-content[data-level=' + level + ']').data('data-checked-parms', {
-                            "key": _ev_key,
-                            "txt": _ev_txt
+                            "id": _ev_key,
+                            "title": _ev_txt
                         })
                         __s.find('.select-box-content').each(function(k, v) {
                             if ($(v).attr('data-level') > level) {
@@ -346,7 +362,7 @@ $(function() {
                 url: _url,
                 type: "get",
                 dataType: "jsonp",
-                jsonpCallback: "jsonpCkb",
+                // jsonpCallback: "jsonpCkb",
                 success: function(result) {
                     if (result.state == "y") {
                         cbk(result);
@@ -387,18 +403,21 @@ $(function() {
                     $(v).remove();
                 } else {
                     $(v).find('.select-dl').find('a.active').removeClass('active');
-                    // $(v).find('.select-dl').scrollTop(0);
                 }
             });
+            return this;
         },
         hideSelect: function() {
             this.next('.select-defined').addClass('disn');
+            return this;
         },
         addDisabled: function() {
             this.addClass('disabled').next('.select-defined').addClass('disabled');
+            return this;
         },
         removeDisabled: function() {
             this.removeClass('disabled').next('.select-defined').removeClass('disabled');
+            return this;
         }
     })
 })

@@ -224,6 +224,7 @@ body {
 }
 
 .select-defined {
+  display: inline-block;
   position: relative;
   width: 220px;
   height: 30px;
@@ -246,6 +247,10 @@ body {
 
 .select-defined .select-text span {
   display: inline-block;
+  width: calc(100% - 30px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin-right: 30px;
   text-indent: 10px;
 }
@@ -283,6 +288,7 @@ body {
 
 .select-defined.select-blue .select-defined-content {
   display: none;
+  z-index: 1;
   position: absolute;
   top: 32px;
   left: -1px;
@@ -406,6 +412,16 @@ body {
   border-bottom: 1px #e3e2e2 dashed;
 }
 
+.select-defined.select-blue .select-defined-content .select-box-content[data-level='1'] .select-data-dl .select-dl.single {
+  height: auto;
+  max-height: 423px;
+  min-height: auto;
+  overflow-y: scroll;
+  margin-left: 0;
+  margin-top: -10px;
+  margin-bottom: -10px;
+}
+
 .select-defined.select-blue.active .select-text i.ic-arrow {
   transform: rotate(180deg);
   -moz-transform: rotate(180deg);
@@ -422,7 +438,6 @@ body {
 }
 
 .select-defined.select-orange .select-text span {
-  width: 190px;
   display: inline-block;
   white-space: nowrap;
   overflow: hidden;
@@ -443,10 +458,11 @@ body {
 
 .select-defined.select-orange .select-defined-content {
   display: none;
+  z-index: 1;
   position: absolute;
   top: 32px;
   left: -1px;
-  width: 300px;
+  width: 100%;
   padding-top: 30px;
   background-color: #ffffff;
   border: 1px #d8d8d8 solid;
@@ -503,6 +519,7 @@ body {
 
 .select-defined.select-orange .select-defined-content .select-box-content .select-dl dl dt {
   background-color: #f7f7f7;
+  font-weight: bold;
 }
 
 .select-defined.select-orange .select-defined-content .select-box-content .select-dl dl dd a {
@@ -526,7 +543,7 @@ body {
   position: absolute;
   top: 40px;
   left: 0;
-  width: 45px;
+  width: 30px;
 }
 
 .select-defined.select-orange .select-defined-content .select-box-content[data-level='1'] .select-data-dl .select-bar-ABC a {
@@ -536,7 +553,7 @@ body {
   line-height: 16px;
   text-indent: 0;
   text-align: center;
-  margin-left: 16px;
+  margin-left: 10px;
   margin-bottom: 2px;
   border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -556,12 +573,21 @@ body {
   max-height: none;
   min-height: 420px;
   height: 100%;
-  width: 260px;
   margin-left: 40px;
 }
 
 .select-defined.select-orange .select-defined-content .select-box-content[data-level='1'] .select-data-dl .select-dl dl:last-child dd a:last-child {
-  border-bottom: 1px #e3e2e2 dashed;
+  border-bottom: 1px #ffffff dashed;
+}
+
+.select-defined.select-orange .select-defined-content .select-box-content[data-level='1'] .select-data-dl .select-dl.single {
+  height: auto;
+  max-height: 423px;
+  min-height: auto;
+  overflow-y: scroll;
+  margin-left: 0;
+  margin-top: -10px;
+  margin-bottom: -10px;
 }
 
 .select-defined.select-orange.active .select-text i.ic-arrow {
