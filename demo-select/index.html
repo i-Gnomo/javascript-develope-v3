@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>下拉选择demo1</title>
+    <title>下拉选择demo</title>
     <link rel="stylesheet" href="css/select.min.css" />
 </head>
 
@@ -28,8 +28,15 @@
         <select id="selectBrand" class="zs-select-group" name="brand" data-title="['品牌','车系']" data-holder="请选择品牌/车系" data-skin="select-orange w300" data-style=""></select>
         <select id="selectBrand2" class="zs-select-group" name="brand2" data-title="['车型']" data-holder="请选择车型" data-skin="select-orange w300" data-style=""></select>
     </div>
+    <hr/>
+    <div class="row" style="margin: 30px;">
+        <select id="oselect" class="zs-select-group oselect" name="spec1" data-title="品牌,车系,车型" data-holder="请选择品牌/车系/车型" data-skin="select-blue w300" data-style="width:400px;"></select>
+    </div>
+    <div class="row" style="margin: 30px;">
+        <select id="oselect" class="zs-select-group oselect" name="spec2" data-title="品牌" data-holder="请选择品牌" data-skin="select-blue w300" data-style="width:400px;"></select>
+    </div>
     <script src='js/jquery.js'></script>
-    <script src='js/select.js'></script>
+    <script src='js/jquery.select.js'></script>
     <script>
         $(function() {
             //demo-1
