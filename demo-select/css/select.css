@@ -331,10 +331,6 @@ body {
   display: none;
 }
 
-.select-defined.select-blue .select-defined-content .select-box-content {
-  padding: 10px 0 0;
-}
-
 .select-defined.select-blue .select-defined-content .select-box-content .select-dl {
   max-height: 423px;
   overflow-y: scroll;
@@ -362,22 +358,22 @@ body {
   background-color: #f4fafe;
 }
 
-.select-defined.select-blue .select-defined-content .select-box-content[data-level='1'] {
-  padding-bottom: 10px;
+.select-defined.select-blue .select-defined-content .select-box-content.abc-pack {
+  padding: 10px 0;
 }
 
-.select-defined.select-blue .select-defined-content .select-box-content[data-level='1'] .select-data-dl {
+.select-defined.select-blue .select-defined-content .select-box-content.abc-pack .select-data-dl {
   height: 100%;
 }
 
-.select-defined.select-blue .select-defined-content .select-box-content[data-level='1'] .select-data-dl .select-bar-ABC {
+.select-defined.select-blue .select-defined-content .select-box-content.abc-pack .select-data-dl .select-bar-ABC {
   position: absolute;
   top: 40px;
   left: 0;
   width: 30px;
 }
 
-.select-defined.select-blue .select-defined-content .select-box-content[data-level='1'] .select-data-dl .select-bar-ABC a {
+.select-defined.select-blue .select-defined-content .select-box-content.abc-pack .select-data-dl .select-bar-ABC a {
   display: block;
   width: 18px;
   height: 16px;
@@ -395,24 +391,24 @@ body {
   border: 1px #cbddeb solid;
 }
 
-.select-defined.select-blue .select-defined-content .select-box-content[data-level='1'] .select-data-dl .select-bar-ABC a:hover {
+.select-defined.select-blue .select-defined-content .select-box-content.abc-pack .select-data-dl .select-bar-ABC a:hover {
   color: #ffffff;
   font-weight: bold;
   background-color: #0281c9;
 }
 
-.select-defined.select-blue .select-defined-content .select-box-content[data-level='1'] .select-data-dl .select-dl {
+.select-defined.select-blue .select-defined-content .select-box-content.abc-pack .select-data-dl .select-dl {
   max-height: none;
   min-height: 420px;
   height: 100%;
   margin-left: 40px;
 }
 
-.select-defined.select-blue .select-defined-content .select-box-content[data-level='1'] .select-data-dl .select-dl dl:last-child dd a:last-child {
+.select-defined.select-blue .select-defined-content .select-box-content.abc-pack .select-data-dl .select-dl dl:last-child dd a:last-child {
   border-bottom: 1px #e3e2e2 dashed;
 }
 
-.select-defined.select-blue .select-defined-content .select-box-content[data-level='1'] .select-data-dl .select-dl.single {
+.select-defined.select-blue .select-defined-content .select-box-content.abc-pack .select-data-dl .select-dl.single {
   height: auto;
   max-height: 423px;
   min-height: auto;
@@ -501,10 +497,6 @@ body {
   display: none;
 }
 
-.select-defined.select-orange .select-defined-content .select-box-content {
-  padding: 10px 0 0;
-}
-
 .select-defined.select-orange .select-defined-content .select-box-content .select-dl {
   max-height: 423px;
   overflow-y: scroll;
@@ -531,22 +523,22 @@ body {
   color: #ff6402;
 }
 
-.select-defined.select-orange .select-defined-content .select-box-content[data-level='1'] {
+.select-defined.select-orange .select-defined-content .select-box-content.abc-pack {
   padding-bottom: 10px;
 }
 
-.select-defined.select-orange .select-defined-content .select-box-content[data-level='1'] .select-data-dl {
+.select-defined.select-orange .select-defined-content .select-box-content.abc-pack .select-data-dl {
   height: 100%;
 }
 
-.select-defined.select-orange .select-defined-content .select-box-content[data-level='1'] .select-data-dl .select-bar-ABC {
+.select-defined.select-orange .select-defined-content .select-box-content.abc-pack .select-data-dl .select-bar-ABC {
   position: absolute;
   top: 40px;
   left: 0;
   width: 30px;
 }
 
-.select-defined.select-orange .select-defined-content .select-box-content[data-level='1'] .select-data-dl .select-bar-ABC a {
+.select-defined.select-orange .select-defined-content .select-box-content.abc-pack .select-data-dl .select-bar-ABC a {
   display: block;
   width: 18px;
   height: 16px;
@@ -563,24 +555,24 @@ body {
   border: 1px #fdd5bb solid;
 }
 
-.select-defined.select-orange .select-defined-content .select-box-content[data-level='1'] .select-data-dl .select-bar-ABC a:hover {
+.select-defined.select-orange .select-defined-content .select-box-content.abc-pack .select-data-dl .select-bar-ABC a:hover {
   color: #ffffff;
   font-weight: bold;
   background-color: #ff6402;
 }
 
-.select-defined.select-orange .select-defined-content .select-box-content[data-level='1'] .select-data-dl .select-dl {
+.select-defined.select-orange .select-defined-content .select-box-content.abc-pack .select-data-dl .select-dl {
   max-height: none;
   min-height: 420px;
   height: 100%;
   margin-left: 40px;
 }
 
-.select-defined.select-orange .select-defined-content .select-box-content[data-level='1'] .select-data-dl .select-dl dl:last-child dd a:last-child {
+.select-defined.select-orange .select-defined-content .select-box-content.abc-pack .select-data-dl .select-dl dl:last-child dd a:last-child {
   border-bottom: 1px #ffffff dashed;
 }
 
-.select-defined.select-orange .select-defined-content .select-box-content[data-level='1'] .select-data-dl .select-dl.single {
+.select-defined.select-orange .select-defined-content .select-box-content.abc-pack .select-data-dl .select-dl.single {
   height: auto;
   max-height: 423px;
   min-height: auto;
