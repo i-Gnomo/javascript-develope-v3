@@ -524,7 +524,7 @@ body {
 }
 
 .select-defined.select-orange .select-defined-content .select-box-content.abc-pack {
-  padding-bottom: 10px;
+  padding: 10px 0;
 }
 
 .select-defined.select-orange .select-defined-content .select-box-content.abc-pack .select-data-dl {

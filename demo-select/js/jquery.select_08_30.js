@@ -286,14 +286,9 @@
             $.each(arguments, function(i, v) {
                 _valArr.push(v);
             });
+            // console.log(_t.attr('data-selected'), '-------------------------');
             _t.attr('data-selected', _valArr.join(','));
-            console.log(_rdom.data('d-data'), '---d-ata');
-            var $events = $._data(_rdom[0], 'events');
-            if ($events && $events['selectCbk']) {
-                _t.oselect(_rdom.data('d-data'), $events['selectCbk']);
-            } else {
-                _t.oselect(_rdom.data('d-data'));
-            }
+            _rdom.oListData();
             return _t;
         },
         clearGroupVal: function() {
@@ -352,6 +347,7 @@
                     }
                 })
                 _t.data('select-checked-parms', _currentCked);
+                console.log($.map(_currentCked, function(z) { return z.id }), _t.prev('select').attr('data-selected'), '---00000');
                 _t.prev('select').attr('data-selected', $.map(_currentCked, function(z) { return z.id }));
                 var $events = $._data(_t[0], 'events');
                 if ($events && $events['selectCbk']) {
@@ -363,36 +359,42 @@
             }
 
             var cruelist = {
-                crud: function(way, __s, h) {
+                create: function(__s, h) {
+                    // console.log('create');
                     var abcPack = (h && h > 0) ? true : false;
-                    switch (way) {
-                        case 'create':
-                            _t.oGetContent().append('<div class="select-box-content' + (abcPack ? ' abc-pack' : '') + '" data-level="' + index + '" ' + (abcPack ? "style=\"height:" + h + "px;\"" : "") + '>' + __s + '</div>');
-                            if (abcPack) {
-                                _t.find('.select-bar-ABC').oListEvent('bindAbcClick');
-                            }
-                            break;
-                        case 'update':
-                            var _ncon = _t.oGetContent().find('.select-box-content[data-level=' + index + ']');
-                            _ncon.html(__s);
-                            if (abcPack) {
-                                _ncon.addClass('abc-pack').css('height', h + 'px');
-                                _t.find('.select-bar-ABC').oListEvent('bindAbcClick');
-                            } else {
-                                _ncon.removeClass('abc-pack').css('height', 'auto');
-                            }
-                            break;
-                        default:
-                            break;
+                    _t.oGetContent().append('<div class="select-box-content' + (abcPack ? ' abc-pack' : '') + '" data-level="' + index + '" ' + (abcPack ? "style=\"height:" + h + "px;\"" : "") + '>' + __s + '</div>');
+                    if (abcPack) {
+                        _t.find('.select-bar-ABC').oListEvent('bindAbcClick');
                     }
-                    var ncon = _t.oGetContent().find('.select-box-content[data-level=' + index + ']');
-                    ncon.oListEvent('bindListClick');
                     var _parents = (_t.prev('select').hasClass('zs-select-group')) ? _t.prev('select') : '';
                     var _selectedArr = _parents.attr('data-selected') ? _parents.attr('data-selected').split(',') : [];
+                    var _ncon = _t.oGetContent().find('.select-box-content[data-level=' + index + ']');
+                    _ncon.oListEvent('bindListClick');
                     if (_selectedArr.length > 0 && _selectedArr[index - 1] != '') {
-                        ncon.find('a[data-key="' + _selectedArr[index - 1] + '"]').trigger('click');
+                        _ncon.find('a[data-key="' + _selectedArr[index - 1] + '"]').trigger('click');
                     }
-                    $.fn.oselectDefaults.oEvents['toggleDisn'].call(this, ncon, _t);
+                    $.fn.oselectDefaults.oEvents['toggleDisn'].call(this, _ncon, _t);
+                },
+                update: function(__s, h) {
+                    console.log('update');
+                    var abcPack = (h && h > 0) ? true : false;
+                    var _ncon = _t.oGetContent().find('.select-box-content[data-level=' + index + ']');
+                    _ncon.html(__s);
+                    if (abcPack) {
+                        _ncon.addClass('abc-pack').css('height', h + 'px');
+                        _t.find('.select-bar-ABC').oListEvent('bindAbcClick');
+                    } else {
+                        _ncon.removeClass('abc-pack').css('height', 'auto');
+                    }
+                    // _ncon.oListEvent('bindListClick');
+                    var _parents = (_t.prev('select').hasClass('zs-select-group')) ? _t.prev('select') : '';
+                    var _selectedArr = _parents.attr('data-selected') ? _parents.attr('data-selected').split(',') : [];
+                    var _ncon = _t.oGetContent().find('.select-box-content[data-level=' + index + ']');
+                    _ncon.oListEvent('bindListClick');
+                    if (_selectedArr.length > 0 && _selectedArr[index - 1] != '') {
+                        _ncon.find('a[data-key="' + _selectedArr[index - 1] + '"]').trigger('click');
+                    }
+                    $.fn.oselectDefaults.oEvents['toggleDisn'].call(this, _ncon, _t);
                 },
                 evalAbc: function(arr) {
                     //品牌ABC索引
@@ -464,9 +466,9 @@
 
                 str += '</div>';
                 if (ots.abcTag) {
-                    cruelist['crud'](crud, str, abc.length * 20);
+                    cruelist[crud](str, abc.length * 20);
                 } else {
-                    cruelist['crud'](crud, str);
+                    cruelist[crud](str);
                 }
                 _t.oListEvent('toggleLevel');
             }
