@@ -7,25 +7,15 @@
     <link rel="stylesheet" href="css/select.min.css" />
 </head>
 
-<body>
+<body style="height: 2000px;">
     <div style="margin: 30px;">
-        <h4>使用数据接口6,7,8</h4>
+        <h4>使用数据接口1,8</h4>
     </div>
     <div class="row" style="margin: 30px;">
-        <!-- data-selected="33,3170,32041"-->
-        <select class="zs-select-group oselect1" name="spec1" data-title="品牌,车系,车型" data-holder="请选择品牌/车系/车型" data-skin="select-blue" data-style="width:500px;"></select>
+        <select class="zs-select-group oselect6" name="spec6" data-selected="33,18,31530" data-title="品牌,车系,车型" data-holder="请选择品牌/车系/车型" data-skin="select-orange" data-style="width:500px;"></select>
     </div>
-    <div style="margin: 10px 30px;padding: 10px 0;">
-        <button style="margin-bottom:10px;" id="getVal">获取选中的车型id</button>
-        <button style="margin-bottom:10px;" id="getTxt">获取选中的车型名称</button>
-        <button style="margin-bottom:10px;" id="getGroup">获取选中的品牌车系车型值</button>
-        <!--在控制台查看打印的值-->
-        <br/>
-        <button style="margin-bottom:10px;" id="clearGroupVal">清空选中的数据</button>
-        <button style="margin-bottom:10px;" id="addDisabled">使下拉框不可选择</button>
-        <button style="margin-bottom:10px;" id="removeDisabled">使下拉框可以选择</button>
-        <br/>
-        <button style="margin-bottom:10px;" id="setVal">设置下拉选中值</button>
+    <div class="row" style="margin: 30px;">
+        <select class="zs-select-group oselect7" name="spec7" data-title="品牌,车系" data-holder="请选择品牌/车系" data-skin="select-orange" data-style="width:500px;"></select>
     </div>
     <hr/>
     <div style="margin: 30px;">
@@ -41,17 +31,26 @@
     </div>
     <hr/>
     <div style="margin: 30px;">
-        <h4>使用数据接口1,8</h4>
+        <h4>使用数据接口6,7,8</h4>
     </div>
     <div class="row" style="margin: 30px;">
-        <select class="zs-select-group oselect6" name="spec6" data-title="品牌,车系,车型" data-holder="请选择品牌/车系/车型" data-skin="select-orange" data-style="width:500px;"></select>
+        <!-- data-selected="33,3170,32041"-->
+        <select class="zs-select-group oselect1" name="spec1" data-selected="33,3170,32041" data-title="品牌,车系,车型" data-holder="请选择品牌/车系/车型" data-skin="select-blue" data-style="width:500px;"></select>
     </div>
-    <div class="row" style="margin: 30px;">
-        <select class="zs-select-group oselect7" name="spec7" data-title="品牌,车系" data-holder="请选择品牌/车系" data-skin="select-orange" data-style="width:500px;"></select>
+    <div style="margin: 10px 30px;padding: 10px 0;">
+        <button style="margin-bottom:10px;" id="getVal">获取选中的车型id</button>
+        <button style="margin-bottom:10px;" id="getTxt">获取选中的车型名称</button>
+        <button style="margin-bottom:10px;" id="getGroup">获取选中的品牌车系车型值</button>
+        <!--在控制台查看打印的值-->
+        <br/>
+        <button style="margin-bottom:10px;" id="clearGroupVal">清空选中的数据</button>
+        <button style="margin-bottom:10px;" id="addDisabled">使下拉框不可选择</button>
+        <button style="margin-bottom:10px;" id="removeDisabled">使下拉框可以选择</button>
+        <br/>
+        <button style="margin-bottom:10px;" id="setVal">设置下拉选中值</button>
     </div>
-    <div class="row" style="margin: 30px;">
-        <select class="zs-select-group oselect8" name="spec8" data-title="品牌,车系" data-holder="请选择品牌/车系" data-skin="select-orange" data-style="width:500px;"></select>
-    </div>
+
+
     <script src='js/jquery.js'></script>
     <script src='js/jquery.select.js' js-select='true'></script>
     <script>
@@ -63,7 +62,7 @@
                 url: 'http://brandcheyun.caridcc.com/index/ajax/brand/type/1',
                 fieldv: 'id',
                 fieldt: 'title',
-                // selected: 35,
+                selected: 35,
                 filter: function(result) {
                     return result['rows'];
                 }
@@ -72,7 +71,7 @@
                 url: 'http://brandcheyun.caridcc.com/index/ajax/brand/type/3/pid/@parentValue',
                 fieldv: 'id',
                 fieldt: 'title',
-                // selected: 385,
+                selected: 385,
                 filter: function(result) {
                     return result['rows'];
                 }
@@ -81,7 +80,7 @@
                 url: 'http://brandcheyun.caridcc.com/index/ajax/brand/type/5/pid/@parentValue',
                 fieldv: 'id',
                 fieldt: 'title',
-                // selected: 30238,
+                selected: 30238,
                 filter: function(result) {
                     return result['rows'];
                 }
@@ -89,9 +88,6 @@
                 console.log('oselect1：', id, '|', txt);
             });
 
-            //设置下拉框的值 回填值
-            $('.oselect1').oSetGroupVal(33, 3170, 32041);
-            /*
             //easyui
             $('.oselect2').oselect([{
                 abcTag: true, //标识索引
@@ -145,30 +141,30 @@
             });
             $('.oselect5').oselect().addDisabled();
 
-            $('.oselect6').oselect([{
-                abcTag: true,
-                type: 'javascript',
-                jsObject: 'JSONDATA',
-                url: 'http://brandcheyun.caridcc.com/index/ajax/javascript',
-                fieldv: 'I',
-                fieldt: 'N'
-            }, {
-                type: 'javascript',
-                jsObject: 'JSONDATA',
-                fieldv: 'I',
-                fieldt: 'N'
-            }, {
-                type: 'default',
-                url: 'http://brandcheyun.caridcc.com/index/ajax/brand/type/5/pid/@parentValue',
-                fieldv: 'id',
-                fieldt: 'title',
-                filter: function(result) {
-                    return result['rows'];
-                }
-            }]);
-            //设置下拉框oselect4的默认值
-            // $('.oselect6').oSetGroupVal(38, 592, 18798);
+            $.getDataScript('JSONDATA', 'http://brandcheyun.caridcc.com/index/ajax/javascript', function() {
+                $('.oselect6,.oselect7').oselect([{
+                    abcTag: true,
+                    type: 'javascript',
+                    jsObject: 'JSONDATA',
+                    fieldv: 'I',
+                    fieldt: 'N'
+                }, {
+                    type: 'javascript',
+                    jsObject: 'JSONDATA',
+                    fieldv: 'I',
+                    fieldt: 'N'
+                }, {
+                    type: 'default',
+                    url: 'http://brandcheyun.caridcc.com/index/ajax/brand/type/5/pid/@parentValue',
+                    fieldv: 'id',
+                    fieldt: 'title',
+                    filter: function(result) {
+                        return result['rows'];
+                    }
+                }]);
+            });
 
+            //不管下拉框有没有数据 初始化下拉框
             $('.zs-select-group').oselect();
 
             //获取选中数据
@@ -197,9 +193,10 @@
             $('#removeDisabled').on('click', function() {
                 $('.oselect1').removeDisabled();
             });
-            */
+
             $('#setVal').on('click', function() {
-                $('.oselect1').oSetGroupVal(33, 3170, 32040);
+                //设置下拉框的值
+                $('.oselect1').oSetGroupVal(34, 3825, 29396);
             });
         })
     </script>

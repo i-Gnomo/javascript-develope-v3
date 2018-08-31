@@ -24,6 +24,31 @@
                 })
             }
             return array;
+        },
+        getDataScript: function(_objname, _url, cbk) {
+            var _script = $('<script type="text\/javascript" src="' + _url + '?callback=window.loadselectdata"></script>');
+            $('script[js-select]').length > 0 ?
+                _script.insertBefore($('script[js-select]')) :
+                _script.insertBefore($('body script').eq(0));
+
+            window.loadselectdata = function(_result) {
+                var _data = $('<script type="text\/javascript">window["' + _objname + '"]=' + JSON.stringify(_result) + '<\/script>');
+                _data.insertAfter(_script);
+                _script.remove();
+                cbk(window[_objname]);
+            }
+        },
+        getDataAjax: function(_url, cbk) {
+            $.ajax({
+                url: _url,
+                type: 'get',
+                dataType: 'jsonp',
+                success: function(result) {
+                    if (result) {
+                        cbk(result);
+                    }
+                }
+            });
         }
     })
 
@@ -42,7 +67,7 @@
                 case 'default':
                 case 'easyui':
                     newurl = p.url.replace('@parentValue', pid);
-                    dataAjx(newurl);
+                    $.getDataAjax(newurl, cbk);
                     break;
                 case 'javascript':
                     if (p.jsObject && p.jsObject != '') {
@@ -51,7 +76,7 @@
                             cbk(_nresult);
                         } else {
                             if (newurl && newurl != '') {
-                                dataWrite(newurl);
+                                $.getDataScript(p.jsObject, newurl, cbk);
                             }
                         }
                     }
@@ -68,38 +93,9 @@
                         }
                     })
                 }
-                // debugger;
                 return _result;
             }
 
-            function dataWrite(_url) {
-                var _script = $('<script type="text\/javascript" src="' + _url + '?callback=window.loadselectdata"></script>');
-                $('script[js-select]').length > 0 ?
-                    _script.insertBefore($('script[js-select]')) :
-                    _script.insertBefore($('body script').eq(0));
-
-                window.loadselectdata = function(_result) {
-                    var _data = $('<script type="text\/javascript">window["' + p.jsObject + '"]=' + JSON.stringify(_result) + '<\/script>');
-                    _data.insertAfter(_script);
-                    _script.remove();
-                    // evalJsObject(window[p.jsObject]);
-                    cbk(window[p.jsObject]);
-                }
-            }
-
-            function dataAjx(_url) {
-                $.ajax({
-                    url: _url,
-                    type: 'get',
-                    dataType: 'jsonp',
-                    // jsonpCallback: 'jsonpCkb',
-                    success: function(result) {
-                        if (result) {
-                            cbk(result);
-                        }
-                    }
-                });
-            }
         },
         oEvents: {
             'toggleDown': function(_s) {
@@ -202,7 +198,6 @@
 
                 if (!opts || !opts.length) { return _v; }
                 if ($.isArray(opts) && opts.length > 0) {
-                    var myopts = [];
                     var sArr = [];
                     var sHased = false;
                     $.map(opts, function(itm, i) {
@@ -215,7 +210,6 @@
                         }
                         if (itm.selected) { sHased = true; }
                         sArr.push(itm.selected ? itm.selected : '');
-                        myopts.push(opts[i]);
                         return '';
                     });
                     if (sHased) {
@@ -280,19 +274,23 @@
         },
         oSetGroupVal: function() {
             var _t = this,
-                _valArr = [];
-            _rdom = _t.oGetSelect();
+                _valArr = [],
+                _rdom = _t.oGetSelect();
             if (!arguments || arguments.length == 0) { return _t; }
             $.each(arguments, function(i, v) {
                 _valArr.push(v);
             });
-            _t.attr('data-selected', _valArr.join(','));
-            console.log(_rdom.data('d-data'), '---d-ata');
+            var _sdata = _rdom.data('d-data');
+            $.each(_sdata, function(i, x) {
+                if (_valArr[i]) {
+                    _sdata[i].selected = _valArr[i];
+                }
+            });
             var $events = $._data(_rdom[0], 'events');
             if ($events && $events['selectCbk']) {
-                _t.oselect(_rdom.data('d-data'), $events['selectCbk']);
+                _t.oselect(_sdata, $events['selectCbk']);
             } else {
-                _t.oselect(_rdom.data('d-data'));
+                _t.oselect(_sdata);
             }
             return _t;
         },
