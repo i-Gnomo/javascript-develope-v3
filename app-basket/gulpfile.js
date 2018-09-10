@@ -37,8 +37,9 @@ gulp.task('clean', function() {
 
 gulp.task('revVersion', function() {
     return gulp.src(['dist/rev/**/*.json', 'view/*.html'])
-        .pipe(revCollector())
-        .pipe(gulp.dest('view'));
+        .pipe(revCollector({
+            replaceReved: true
+        })).pipe(gulp.dest('view'));
 })
 
 gulp.task('newSources', function(callback) {
