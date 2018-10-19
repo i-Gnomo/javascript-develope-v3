@@ -35,7 +35,7 @@
     </div>
     <div class="row" style="margin: 30px;">
         <!-- data-selected="33,3170,32041"-->
-        <select class="zs-select-group oselect1" name="spec1" data-selected="33,3170" data-title="品牌,车系,车型" data-holder="请选择品牌/车系/车型" data-skin="select-blue" data-style="width:500px;"></select>
+        <select class="zs-select-group oselect1" name="spec1" data-selected="33,3170,32041" data-title="品牌,车系,车型" data-holder="请选择品牌/车系/车型" data-skin="select-blue" data-style="width:500px;"></select>
     </div>
     <div style="margin: 10px 30px;padding: 10px 0;">
         <button style="margin-bottom:10px;" id="getVal">获取选中的车型id</button>
@@ -62,7 +62,7 @@
                 url: 'http://brandcheyun.caridcc.com/index/ajax/brand/type/1',
                 fieldv: 'id',
                 fieldt: 'title',
-                // selected: 35,
+                selected: 35,
                 filter: function(result) {
                     return result['rows'];
                 }
@@ -71,7 +71,7 @@
                 url: 'http://brandcheyun.caridcc.com/index/ajax/brand/type/3/pid/@parentValue',
                 fieldv: 'id',
                 fieldt: 'title',
-                // selected: 385,
+                selected: 385,
                 filter: function(result) {
                     return result['rows'];
                 }
@@ -80,15 +80,14 @@
                 url: 'http://brandcheyun.caridcc.com/index/ajax/brand/type/5/pid/@parentValue',
                 fieldv: 'id',
                 fieldt: 'title',
-                // selected: 30238,
+                selected: 30238,
                 filter: function(result) {
                     return result['rows'];
                 }
             }], function(event, elem, id, txt) {
-                // console.log('oselect1：', id, '|', txt);
+                console.log('oselect1：', id, '|', txt);
             });
-            
-            /*
+
             //easyui
             $('.oselect2').oselect([{
                 abcTag: true, //标识索引
@@ -106,7 +105,7 @@
                     return result['rows'];
                 }
             }], function(event, elem, id, txt) {
-                // console.log('oselect2：', id, '|', txt);
+                console.log('oselect2：', id, '|', txt);
                 $('.oselect3').oselect([{
                     type: 'easyui',
                     url: 'http://brandcheyun.caridcc.com/index/ajax/easyui/type/5/pid/' + id,
@@ -132,7 +131,7 @@
                     return result['rows'];
                 }
             }], function(event, elem, id, txt) {
-                // console.log('oselect4：', id, '|', txt);
+                console.log('oselect4：', id, '|', txt);
                 $('.oselect5').oselect([{
                     type: 'easyui',
                     url: 'http://brandcheyun.caridcc.com/index/ajax/easyui/type/5/pid/' + id,
@@ -154,7 +153,8 @@
                     jsObject: 'JSONDATA',
                     fieldv: 'I',
                     fieldt: 'N'
-                }, {
+                }]);
+                /*, {
                     type: 'default',
                     url: 'http://brandcheyun.caridcc.com/index/ajax/brand/type/5/pid/@parentValue',
                     fieldv: 'id',
@@ -162,12 +162,11 @@
                     filter: function(result) {
                         return result['rows'];
                     }
-                }]);
+                }]);*/
             });
 
             //不管下拉框有没有数据 初始化下拉框
             $('.zs-select-group').oselect();
-            */
 
             //获取选中数据
             $('#getVal').on('click', function() {

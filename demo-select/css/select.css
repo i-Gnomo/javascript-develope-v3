@@ -188,10 +188,9 @@ input {
   -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
 }
 
-body {
-  font-family: "Microsoft YaHei";
-}
-
+/*body {
+    font-family: "Microsoft YaHei";
+}*/
 .pop-relative {
   position: relative;
 }
