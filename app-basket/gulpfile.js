@@ -3,6 +3,8 @@ var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 //压缩css
 var cleanCSS = require('gulp-clean-css');
+//压缩图片
+var imageMin = require('gulp-imagemin');
 var rename = require('gulp-rename');
 //生成版本号
 var rev = require('gulp-rev');
@@ -12,6 +14,7 @@ var clean = require('gulp-clean');
 
 var runSequence = require('run-sequence');
 
+//压缩js
 gulp.task('jscompress', function() {
     return gulp.src('js/*.js')
         .pipe(rename({ suffix: '.min' }))
@@ -21,6 +24,7 @@ gulp.task('jscompress', function() {
         .pipe(rev.manifest())
         .pipe(gulp.dest('dist/rev/js'));
 });
+//压缩css
 gulp.task('csscompress', function() {
     return gulp.src('css/index.min.css')
         .pipe(cleanCSS())
@@ -29,6 +33,18 @@ gulp.task('csscompress', function() {
         .pipe(rev.manifest())
         .pipe(gulp.dest('dist/rev/css'));
 });
+
+//压缩图片
+gulp.task('compressimage', function() {
+    return gulp.src('images/*.{png,jpg,gif,ico,svg}')
+        .pipe(imageMin({
+            optimizationLevel: 5, //类型：Number  默认：3  取值范围：0-7（优化等级）
+            progressive: true, //类型：Boolean 默认：false 无损压缩jpg图片
+            interlaced: true, //类型：Boolean 默认：false 隔行扫描gif进行渲染
+            multipass: true //类型：Boolean 默认：false 多次优化svg直到完全优化
+        }))
+        .pipe(gulp.dest('dist/cmpimages'));
+})
 
 gulp.task('clean', function() {
     gulp.src("dist/**/*.js", { read: false }).pipe(clean());
@@ -51,6 +67,7 @@ gulp.task('newSources', function(callback) {
 gulp.task('auto', function() {
     gulp.watch('js/*.js', ['newSources']);
     gulp.watch('css/index.min.css', ['newSources']);
+    gulp.watch('images/*.*', ['compressimage']);
 })
 
 gulp.task('default', ['auto']);

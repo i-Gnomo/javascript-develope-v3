@@ -400,3 +400,7 @@ li {
 .clockTip[attr-seconds] span.two[num="9"] {
   background-position: -10.125rem 0;
 }
+
+div {
+  color: blue;
+}
