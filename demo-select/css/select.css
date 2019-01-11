@@ -1,9 +1,17 @@
 /*select user-defined*/
+<<<<<<< HEAD
 /*
  html5doctor.com Reset Stylesheet
  v1.4.1
  2010-03-01
  Author: Richard Clark - http://richclarkdesign.com
+=======
+/*
+ html5doctor.com Reset Stylesheet
+ v1.4.1
+ 2010-03-01
+ Author: Richard Clark - http://richclarkdesign.com
+>>>>>>> 8f33d3388ed0c45d5fd3c6910549d7b78440e8e8
  */
 @import url(font-awesome/css/font-awesome.css);
 html,
@@ -188,8 +196,13 @@ input {
   -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
 }
 
+<<<<<<< HEAD
 /*body {
     font-family: "Microsoft YaHei";
+=======
+/*body {
+    font-family: "Microsoft YaHei";
+>>>>>>> 8f33d3388ed0c45d5fd3c6910549d7b78440e8e8
 }*/
 .pop-relative {
   position: relative;

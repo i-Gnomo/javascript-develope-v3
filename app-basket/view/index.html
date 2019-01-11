@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,4 +106,113 @@
     console.log('Hello world');
 </script>
 
+=======
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>大帝恩比德燃球互动游戏</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="../dist/css/index.min.css?v=c9bdd63a00" />
+    <script type="text/javascript">
+        var MYOPENID = 'o_dDpjt_7k9DWqzX38VLVVnVGZi7';
+        var __MYPUBLIC__ = 'http://front.1715.cn/basket/dist';
+        (function(doc, win) {
+            var docEl = win.document.documentElement;
+            var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+            var refreshRem = function() {
+                var clientWidth = win.innerWidth ||
+                    doc.documentElement.clientWidth ||
+                    doc.body.clientWidth;
+                if (!clientWidth) return;
+                var fz;
+                var width = clientWidth;
+                var dpr = win.devicePixelRatio;
+                if (width / dpr > 320) {
+                    width = 320 * dpr;
+                }
+                fz = 16 * width / 375;
+                docEl.style.fontSize = fz + 'px';
+            };
+
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, refreshRem, false);
+            doc.addEventListener('DOMContentLoaded', refreshRem, false);
+            refreshRem();
+        })(document, window);
+    </script>
+</head>
+
+<body>
+    <div class="app-loading" id="loading"></div>
+    <div id="basket">
+        <!--画布-->
+    </div>
+    <!--计时器-->
+    <div id="clock" class="clockTip" attr-seconds="30"><span class="one"></span><span class="two"></span></div>
+    <div id="inCount" class="intoTimes"><span>0</span></div>
+    <!--帮助按钮-->
+    <div type="button" class="helpBtn"></div>
+    <!--底部分值-->
+    <div class="score">
+        <div class="coins"><em id="myCoins">0</em></div>
+        <div class="lastnumber"><em id="myTimes" attr-v="20">20</em></div>
+    </div>
+    <!--蓄力器-->
+    <!-- <div class="power auto-power5s"> -->
+    <div class="power moveTo">
+        <i class="pointerv" id="pointerv" style="bottom: 0;"></i>
+        <p class="pointerw" id="pointerw"></p>
+    </div>
+    <audio class="audioBox" id="backMusic" loop="loop">
+        <source src="http://front.1715.cn/basket/dist/images/voice/bgm.mp3" type="audio/mp3" />
+    </audio>
+    <audio class="audioBox" id="ballSuccMusic">
+        <source src="http://front.1715.cn/basket/dist/images/voice/hh.mp3" type="audio/mp3" />
+    </audio>
+    <!-- <div style="position:absolute;top:10%;left:0;width:100%;height:300px;overflow:scroll;line-height:30px;font-size:14px;background-color:#000;color:#fff;" id="consoleLog"></div> -->
+</body>
+<div class="dialog" id="timeEnd" style="display: none;">
+    <div class="dialog-cover"></div>
+    <div class="content">
+        <h4 class="timeover"></h4>
+        <div class="fonts">您一共完成了<span id="successTimes"></span>次投篮
+            <br/>您本次游戏获得<span id="getedCoins"></span>痛快币！</div>
+        <div class="btn-bar">
+            <div class="again" id="playAgain"></div>
+            <a href="" class="cancel"></a>
+        </div>
+    </div>
+</div>
+<div class="dialog" id="yourTimesOver" style="display: none;">
+    <div class="dialog-cover"></div>
+    <div class="content notimes">
+        <div class="fonts">您今日游戏次数已达上限，<br/>明天再来玩吧！</div>
+        <div class="btn-bar">
+            <a href="" class="cancel"></a>
+        </div>
+    </div>
+</div>
+<div class="dialog" id="help" style="display: none;">
+    <div class="dialog-cover"></div>
+    <div class="helpimg">
+        <div class="helpimg01"></div>
+        <div class="helpimg02"></div>
+        <div class="helpimg03"></div>
+    </div>
+    <a class="know_btn" id="knowIt"></a>
+</div>
+<script src="../dist/js/vconsole.min.js?v=97f4db7c6a"></script>
+<script type="text/javascript" src="../dist/js/svg.min.js?v=1d4cf33e78"></script>
+<script type="text/javascript" src="../dist/js/zepto.min.js?v=220d73ef86"></script>
+<script type="text/javascript" src="../dist/js/event.min.js?v=56d5bc484d"></script>
+<script type="text/javascript" src="../dist/js/fx.min.js?v=6abff113b3"></script>
+<script type="text/javascript" src="../dist/js/ball.min.js?v=ca119cac61"></script>
+<script type="text/javascript">
+    var YourTimeCount = '20';
+    // var vConsole = new VConsole();
+    console.log('Hello world');
+</script>
+
+>>>>>>> 8f33d3388ed0c45d5fd3c6910549d7b78440e8e8
 </html>
