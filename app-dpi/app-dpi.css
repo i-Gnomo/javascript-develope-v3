@@ -1,0 +1,68 @@
+body {
+  padding: 0;
+  margin: 0 auto;
+  line-height: 0;
+}
+div,
+p,
+ul,
+li {
+  padding: 0;
+  margin: 0;
+}
+body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+button {
+  width: 90%;
+  height: .8rem;
+  line-height: .8rem;
+  border: 1px #d43c33 solid;
+  border-radius: 10px;
+  font-size: .3rem;
+  background-color: #d43c33;
+  color: #ffffff;
+}
+input {
+  width: 90%;
+  height: .5rem;
+  line-height: .4rem;
+  border: 1px #d43c33 solid;
+  border-radius: 5px;
+  font-size: .3rem;
+  margin: .25rem 0 0 5%;
+  padding: 0.1rem 0;
+  text-indent: .1rem;
+}
+.download {
+  width: 100%;
+  height: 1.28rem;
+  font-size: .3rem;
+  background-color: #d43c33;
+  color: #ffffff;
+}
+.topbar {
+  height: 100%;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+}
+.topfr {
+  width: 1.6rem;
+  height: .5rem;
+  border: 1px #eee solid;
+  line-height: .5rem;
+  text-align: center;
+  border-radius: .5rem;
+  font-size: .25rem;
+}
+.redblock {
+  width: 750px;
+  height: 64px;
+  background-color: #d43c33;
+}

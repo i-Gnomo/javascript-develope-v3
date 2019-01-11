@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>basketball game</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <script type="text/javascript">
+        (function(doc, win) {
+            var docEl = win.document.documentElement;
+            var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+            var refreshRem = function() {
+                var clientWidth = win.innerWidth ||
+                    doc.documentElement.clientWidth ||
+                    doc.body.clientWidth;
+                if (!clientWidth) return;
+                var fz;
+                var width = clientWidth;
+                var dpr = win.devicePixelRatio;
+                if (width / dpr > 320) {
+                    width = 320 * dpr;
+                }
+                fz = 16 * width / 375;
+                docEl.style.fontSize = fz + 'px';
+            };
+
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, refreshRem, false);
+            doc.addEventListener('DOMContentLoaded', refreshRem, false);
+            refreshRem();
+        })(document, window);
+    </script>
+</head>
+
+<body>
+    <div id="basket">
+    </div>
+    <div id="clock" class="clockTip">时间计时：<span>30s</span></div>
+    <button type="button" class="helpBtn">游戏帮助</button>
+    <div class="score">
+        <div>痛快币：<em>100</em></div>
+        <div style="float:right">今日剩余挑战次数：<em>6</em></div>
+    </div>
+</body>
+<script type="text/html">
+    <div>
+        <button></button>
+        <button></button>
+    </div>
+</script>
+<script type="text/javascript" src="http://zeptojs.com/zepto.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.6.5/svg.min.js"></script>
+<script>
+    //路径1
+    var points = [{
+        x: 40,
+        y: 120
+    }, {
+        x: 40,
+        y: 80
+    }, {
+        x: 40,
+        y: 0
+    }, {
+        x: 60,
+        y: 30
+    }, {
+        x: 70,
+        y: 90
+    }, {
+        x: 100,
+        y: 40
+    }];
+    // var points = [{
+    //     x: 10,
+    //     y: 150
+    // }, {
+    //     x: 10,
+    //     y: 80
+    // }, {
+    //     x: 10,
+    //     y: 0
+    // }, {
+    //     x: 50,
+    //     y: 30
+    // }, {
+    //     x: 60,
+    //     y: 50
+    // }, {
+    //     x: 100,
+    //     y: 40
+    // }];
+    var ratx = 4;
+    var resetXy = {};
+    var pathxy = $.map(points, function(v, i) {
+        var dx = v.x * ratx,
+            dy = v.y * ratx;
+        if (i == 0) {
+            resetXy.x = dx;
+            resetXy.y = dy;
+            return 'M' + dx + ' ' + dy;
+        } else if (i == 1) {
+            return 'C' + dx + ' ' + dy;
+        } else if (i == 4) {
+            return 'S' + dx + ' ' + dy;
+        } else {
+            return dx + ' ' + dy;
+        }
+    }).join(" ");
+
+    /****/
+    var baseW, baseH, whV, bgSrc;
+    if (screen.width == 375 && screen.height == 812) {
+        baseW = 375, baseH = 812;
+        bgSrc = "images/bg2.png";
+    } else {
+        baseW = 540, baseH = 960;
+        bgSrc = "images/bg.png";
+    }
+    whV = (baseH / baseW).toFixed(2);
+
+    var svgWidth = document.body.clientWidth;
+    var svgHeight = svgWidth * whV;
+
+    function getsize(w, h) {
+        return {
+            width: w / baseW * svgWidth,
+            height: h / baseH * svgHeight,
+        }
+    }
+    //时间倒计时
+
+    //左侧指针
+
+    //画布
+    var drawSvg = SVG("basket").size(svgWidth, svgHeight);
+
+    //背景
+    var image = drawSvg.image(bgSrc).size("100%", "100%").loaded(function(loader) {
+        // this.size(loader.width, loader.height) //自然宽高
+    });
+
+    //元素A 动态人
+    var sizeA = getsize(180, 350);
+    var peopleA = drawSvg.image('images/people-A.png').size(sizeA.width, sizeA.height)
+        .move((svgWidth - sizeA.width) / 2, svgHeight - sizeA.height);
+
+    //元素B 篮筐
+    var size_topA = getsize(200, 160);
+    var topA = drawSvg.image('images/top-A.png').size(size_topA.width, size_topA.height)
+        .move((svgWidth - size_topA.width) / 2, 0);
+
+    /****/
+
+
+    var ballsize = 50;
+    // var drawSvg = SVG('basket').size('800', '800'),
+    var circle = drawSvg.circle(ballsize, ballsize).center(resetXy.x, resetXy.y).addClass("ball01"), //球
+        path = drawSvg.path(pathxy); //路径
+    var length = path.length();
+
+    /*--------------*/
+    // $.each(points, function(index, item) {
+    //     var dx = item.x * ratx,
+    //         dy = item.y * ratx;
+    //     drawSvg.rect(4, 4).center(dx, dy).fill('red').addClass('class' + index);
+    // })
+    path.fill('none').stroke({
+            width: 1,
+            color: '#ccc'
+        })
+        /*-----------*/
+
+    //抛球动画
+    function ballPlay() {
+        circle.animate(1000, '>').during(function(pos, morph, eased) {
+            // console.log(pos, morph, eased);
+            var m = path.matrixify()
+            var p = new SVG.Point(path.pointAt(eased * length)).transform(m);
+            var lv = 1 - parseFloat(eased).toFixed(2);
+            var newsize = ballsize * (lv > 0.4 ? lv : 0.4);
+            circle.size(newsize).center(p.x, p.y)
+        }).after(function() {
+            this.size(ballsize).center(resetXy.x, resetXy.y);
+        });
+    };
+    //时间小于300ms不能发球
+    function ballShake() {
+        circle.dmove(0, -20).animate(100).dmove(0, 20);
+    }
+
+    (function($) {
+        //识别长按
+        var touchTime = 0,
+            baseTime = 100;
+        var recountTime = null;
+        var stopTag = false;
+
+        function resetTime() {
+            touchTime = 0;
+            baseTime = 100;
+        }
+        $('#basket').bind("touchstart", function(event) {
+            // var touchpros = event.touches[0];
+            // console.log(touchpros);
+            resetTime();
+            stopTag = false;
+
+            function recountTime() {
+                if (stopTag) {
+                    return false;
+                }
+                if (touchTime < baseTime) {
+                    var xtime = setTimeout(function() {
+                        touchTime += 100;
+                        baseTime += 100;
+                        recountTime();
+                        clearTimeout(xtime);
+                    }, 100)
+                }
+            };
+            recountTime();
+        });
+        $('#basket').bind("touchmove,touchcancel", function() {
+            //不是长按
+            resetTime();
+        });
+        $('#basket').bind("touchend", function() {
+            //时间需大于300毫秒否则不是长按
+            recountTime = null;
+            stopTag = true;
+            if (touchTime > 300) {
+                console.log('my touchTime:', touchTime);
+                ballPlay();
+            } else {
+                ballShake();
+            }
+            resetTime();
+        });
+
+        //倒计时
+        var maxTime = 5; //每局游戏时长30s
+        var timInterval = setInterval(function() {
+            if (maxTime > 0) {
+                maxTime--;
+                $('#clock').find('span').text(maxTime + 'S');
+            } else {
+                console.log('游戏结束');
+                clearInterval(timInterval);
+            }
+        }, 1000);
+
+    })(Zepto);
+</script>
+
+</html>

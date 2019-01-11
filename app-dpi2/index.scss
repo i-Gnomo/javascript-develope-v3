@@ -1,0 +1,53 @@
+body {
+    padding: 0;
+    margin: 0 auto;
+    line-height: 0;
+}
+
+div,
+p,
+ul,
+li {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+$bckcolor: #d43c33;
+@mixin font-dpr($font-size) {
+    font-size: $font-size;
+    [data-dpr="2"] & {
+        font-size: $font-size * 2;
+    }
+    [data-dpr="3"] & {
+        font-size: $font-size * 3;
+    }
+}
+
+@mixin px-dpr($property, $px) {
+    #{$property}: $px;
+    [data-dpr="2"] & {
+        #{$property}: $px * 2;
+    }
+    [data-dpr="3"] & {
+        #{$property}: $px * 3;
+    }
+}
+
+.redblock {
+    width: 100%;
+    @include px-dpr(height, 64px);
+    background-color: $bckcolor;
+    span {
+        @include px-dpr(margin-left, 10px);
+        @include px-dpr(height, 64px);
+        @include px-dpr(line-height, 64px);
+        @include font-dpr(16px);
+        color: #ffffff;
+    }
+}

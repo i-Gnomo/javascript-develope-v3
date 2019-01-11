@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>元素可编辑</title>
+	<style>
+	.editbox{
+		width:220px;
+		height:60px;
+		border: 1px #ccc solid;
+		overflow:scroll;
+		margin-bottom:20px;
+	}
+	.edt1{
+		-webkit-user-modify: read-write;
+	}
+	.edt2{
+		-webkit-user-modify: read-write-plaintext-only;
+	}
+	</style>
+</head>
+<body>
+<div class="editbox edt1"></div>
+<div class="editbox edt2"></div><!--only text-->
+<div class="editbox edt3" contenteditable="plaintext-only"></div><!--only text-->
+<div class="editbox edt4" contenteditable="true"></div>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.edt4').on('keydown, keyup',function(e){
+		e.preventDefault();
+		var _this = this;
+		var _text = $(this).text();
+		// console.log(e.keyCode);
+		if(e.keyCode == 13){
+			console.log('enter---', _text);
+			$(this).text(_text);
+			po_Last_Div(_this);
+			// $(this).text(_text);
+			// document.execCommand("insertText", false, _text);
+		}
+		if(e.keyCode == 38){
+			//up
+			console.log('up');
+			po_Last_Div(_this);
+			// if(_this.setSelectionRange) {
+		 //        // IE Support
+		 //        _this.focus();
+		 //        _this.setSelectionRange(_text.length, _text.length);
+		 //    }else if (_this.createTextRange) {
+		 //        // Firefox support
+		 //        var range = _this.createTextRange();
+		 //        range.collapse(true);
+		 //        range.moveEnd('character', _text.length);
+		 //        range.moveStart('character', _text.length);
+		 //        range.select();
+		 //    }
+		}
+		if(e.keyCode == 40){
+			//down
+			console.log('down');
+		}
+	})
+})
+//定位div(contenteditable = "true") 光标移到输入框后面
+function po_Last_Div(obj) {
+    if (window.getSelection) {//ie11 10 9 ff safari
+        obj.focus(); //解决ff不获取焦点无法定位问题
+        var range = window.getSelection();//创建range
+        range.selectAllChildren(obj);//range 选择obj下所有子内容
+        range.collapseToEnd();//光标移至最后
+    }
+    else if (document.selection) {//ie10 9 8 7 6 5
+        var range = document.selection.createRange();//创建选择对象
+        //var range = document.body.createTextRange();
+        range.moveToElementText(obj);//range定位到obj
+        range.collapse(false);//光标移至最后
+        range.select();
+    }
+};
+</script>
+</body>
+</html>

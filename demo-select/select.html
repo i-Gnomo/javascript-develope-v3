@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>下拉选择demo1</title>
+    <link rel="stylesheet" href="css/select.min.css" />
+</head>
+
+<body>
+    <div style="margin: 30px;">
+        <h4>使用数据接口6,7,8</h4>
+    </div>
+    <div class="row" style="margin: 30px;">
+        <select id="selectSpec" class="zs-select-group" name="spec" data-title="['品牌','车系','车型']" data-holder="请选择品牌/车系/车型" data-skin="select-blue w300" data-style="width:400px;"></select>
+    </div>
+    <div style="margin: 10px 30px;padding: 10px 0;">
+        <button style="margin-bottom:10px;" id="getVal">获取选中的车型id</button>
+        <button style="margin-bottom:10px;" id="getTxt">获取选中的车型名称</button>
+        <button style="margin-bottom:10px;" id="getGroup">获取选中的品牌车系车型值</button>
+        <!--在控制台查看打印的值-->
+        <br/>
+        <button style="margin-bottom:10px;" id="clearGroupVal">清空选中的数据</button>
+        <button style="margin-bottom:10px;" id="addDisabled">使下拉框不可选择</button>
+        <button style="margin-bottom:10px;" id="removeDisabled">使下拉框可以选择</button>
+    </div>
+    <div class="row" style="margin: 30px;">
+        <select id="selectBrand" class="zs-select-group" name="brand" data-title="['品牌','车系']" data-holder="请选择品牌/车系" data-skin="select-orange w300" data-style=""></select>
+        <select id="selectBrand2" class="zs-select-group" name="brand2" data-title="['车型']" data-holder="请选择车型" data-skin="select-orange w300" data-style=""></select>
+    </div>
+    <script src='js/jquery.js'></script>
+    <script src='js/select.js'></script>
+    <script>
+        $(function() {
+            //demo-1
+            $('#selectSpec').initSelect([{
+                fieldValue: 'id',
+                fieldText: 'title',
+                // setSelected: '33', //33
+                url: 'http://brandcheyun.caridcc.com/index/ajax/brand/type/1',
+                dataFilter: function(result) {
+                    return result['rows'];
+                }
+            }, {
+                fieldValue: 'id',
+                fieldText: 'title',
+                // setSelected: '3170', //3170
+                url: 'http://brandcheyun.caridcc.com/index/ajax/brand/type/3/pid/@parentValue',
+                dataFilter: function(result) {
+                    return result['rows'];
+                }
+            }, {
+                fieldValue: 'id',
+                fieldText: 'title',
+                // setSelected: '32042', //32042
+                url: 'http://brandcheyun.caridcc.com/index/ajax/brand/type/5/pid/@parentValue',
+                dataFilter: function(result) {
+                    return result['rows'];
+                },
+                dataSelected: function(elem, val, txt) {
+                    //选择车型后的回调函数
+                    // var brandId = elem.next('.select-defined').find('div[data-level=1]').data('data-checked-parms').key;
+                    // var seriesId = elem.next('.select-defined').find('div[data-level=2]').data('data-checked-parms').key;
+                    // console.log(brandId, seriesId, val, txt);
+                }
+            }]);
+
+            $('#getVal').on('click', function() {
+                var vvv = $('#selectSpec').getSelectVal();
+                console.log('当前选中的车型id：', vvv);
+            })
+            $('#getTxt').on('click', function() {
+                var vvv = $('#selectSpec').getSelectText();
+                console.log('当前选中的车型title：', vvv);
+            })
+            $('#getGroup').on('click', function() {
+                var vvv = $('#selectSpec').getGroupVal();
+                console.log('当前选中的品牌车系车型：', vvv);
+            })
+
+            $('#clearGroupVal').on('click', function() {
+                $('#selectSpec').clearGroupVal();
+            })
+            $('#addDisabled').on('click', function() {
+                $('#selectSpec').addDisabled();
+            })
+            $('#removeDisabled').on('click', function() {
+                $('#selectSpec').removeDisabled();
+            })
+
+
+            //demo-2
+            $('#selectBrand').initSelect([{
+                fieldValue: 'id',
+                fieldText: 'title',
+                // setSelected: '33', //33
+                url: 'http://brandcheyun.caridcc.com/index/ajax/brand/type/1',
+                dataFilter: function(result) {
+                    return result['rows'];
+                }
+            }, {
+                fieldValue: 'id',
+                fieldText: 'title',
+                // setSelected: '3170', //3170
+                url: 'http://brandcheyun.caridcc.com/index/ajax/brand/type/3/pid/@parentValue',
+                dataFilter: function(result) {
+                    return result['rows'];
+                },
+                dataSelected: function(elem, val, txt) {
+                    // console.log(elem, val, txt);
+                    //选中值后的回调函数
+                    $('#selectBrand2').initSelect([{
+                        fieldValue: 'id',
+                        fieldText: 'title',
+                        // setSelected: '32042', //32042
+                        url: 'http://brandcheyun.caridcc.com/index/ajax/brand/type/5/pid/' + val,
+                        dataFilter: function(result) {
+                            return result['rows'];
+                        }
+                    }]);
+                    $('#selectBrand2').removeDisabled().clearGroupVal();
+                }
+            }]);
+            $('#selectBrand2').initSelect().addDisabled();
+            // $('#selectBrand2').removeDisabled();
+        })
+    </script>
+</body>
+
+</html>

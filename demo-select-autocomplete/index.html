@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>模拟下拉框</title>
+<link rel="stylesheet" type="text/css" href="zs.css" />
+<style>
+.normal_form{
+	width: 100%;
+	height: 28px;
+    line-height: 28px;
+    font-size:12px;
+}
+.row{
+	margin-bottom: 10px;
+}
+.field_text{
+	display: inline-block;
+}
+.zs-box{
+	border-color:#e1e1e1;
+	vertical-align: middle;
+}
+</style> 
+</head>
+<body>
+<div style="padding:20px 0 300px 20px;">
+    <form class="normal_form">
+        <div class="row"> 
+            <div class="label_select">
+                <div class="field_text">选择业务类型：</div>
+                <select class="z-select z-group-01" data-field="" name="" data-skin="w185" data-content="false"></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="label_select">
+                <div class="field_text">选择业务公司：</div>
+                <select class="z-select z-group-02" data-field="sid" name="sid" data-skin="w185 sid" data-content="true"></select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="label_select">
+                <div class="field_text">选择业务公司：</div>
+                <select class="z-select z-group-03" data-field="sid" name="sid" data-skin="w185 sid" data-content="true"></select>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="zs.js"></script>
+<script type="text/javascript">
+$(function(){
+    // $('#hhh123').on('keyup',function(e){
+    //     e.preventDefault();
+    //     var t = $(e.target);
+    //     $.fn.selectauto.defaults.keyHandler.enter.call(t, e);
+    // })
+
+    $('.z-group-01').zsLoadData({
+        'valueField': 'id',
+        'textField': 'title',
+        'url': 'json1.json',
+        'setValue': 1,
+        dataFitler: function(result) {
+            var newdata = [];
+            $.each(result.data, function(index,item){
+                if(item.id!="2" && item.id!="3"){
+                    newdata.push(item);
+                }
+            });
+            return newdata;
+        }
+    });
+    
+    $('.z-group-01').on('setZsValue', function(){
+        var _key = $(this).getZsValue();
+        $('.z-group-02').selectauto({
+            'prompt': '请选择',
+            'valueField': 'sid',
+            'textField': 'title',
+            'url': 'json2.json?itype='+_key,
+            dataFitler: function(result) {
+                return result.data;
+            }
+        });
+    })
+
+    $('.z-group-03').selectauto({
+        'prompt': '请选择',
+        'valueField': 'sid',
+        'textField': 'title',
+        'url': 'json2.json?itype=1',
+        dataFitler: function(result) {
+            return result.data;
+        }
+    });
+})
+</script>
+</body>
+</html>

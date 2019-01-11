@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>获取dpi代码</title>
+    <!--<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">-->
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <script type="text/javascript">
+        (function(win, doc) {
+            var docEl = doc.documentElement;
+            var viewport = document.querySelector('meta[name="viewport"]');
+            var appVersion = win.navigator.appVersion.toLocaleLowerCase();
+            var ismobile = appVersion.match(/iphone|android/gi);
+            var devicePixelRatio = win.devicePixelRatio;
+            var scale;
+            var dpr;
+            var refreshRootFont;
+            if (viewport) {
+                var content = viewport.getAttribute('content').match(/initial\-scale=([\d\.]+)/);
+                if (content) {
+                    scale = parseFloat(content[1]);
+                    dpr = parseInt(1 / scale);
+                }
+            }
+            if (!dpr && !scale) {
+                if (ismobile) {
+                    if (+devicePixelRatio >= 1) {
+                        dpr = devicePixelRatio;
+                    }
+                } else {
+                    dpr = 1;
+                }
+                scale = 1 / dpr;
+            }
+            docEl.setAttribute('data-dpr', dpr);
+
+            if (!viewport) {
+                var metaElement = doc.createElement('meta');
+                metaElement.setAttribute('name', 'viewport');
+                metaElement.setAttribute('content', 'width=device-width,initial-scale=' + scale + ',user-scalable=no');
+                if (docEl.firstElementChild) {
+                    docEl.firstElementChild.appendChild(metaElement);
+                } else {
+                    var wrap = doc.createElement('div');
+                    wrap.appendChild(metaElement);
+                    doc.write(wrap.innerHTML);
+                }
+            }
+            win.addEventListener('resize', function() {
+                clearTimeout(refreshRootFont);
+                refreshRootFont = setTimeout(rootFont, 300);
+            }, false);
+            // win.addEventListener('pageshow', function(e) {
+            //     if (e.persisted) {
+            //         clearTimeout(refreshRootFont);
+            //         refreshRootFont = setTimeout(rootFont, 300);
+            //     }
+            // }, false);
+        }(window, document));
+    </script>
+</head>
+
+<body>
+    <div class="redblock">
+        <span>网易云音乐 听见好声音</span>
+    </div>
+</body>
+<script>
+</script>
+
+</html>

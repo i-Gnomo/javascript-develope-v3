@@ -1,0 +1,139 @@
+<!--first comment-->
+<html>
+<head>
+<meta charset="utf-8" />
+<title>dom</title>
+</head>
+<body>
+<h2>Document类型</h2>
+<ul>
+	<li>文档的子节点</li>
+	<li>文档信息</li>
+	<li name="searchDom">查找元素</li>
+	<li>特殊集合</li>
+	<li>DOM一致性检测</li>
+	<li>文档写入</li>
+</ul>
+<fieldset>
+	<legend>
+		which color do you prefer? 
+	</legend>
+	<label for="redColor"><input type="radio" name="color" value="1" id="redColor" />红色</label>
+	<label for="greenColor"><input type="radio" name="color" value="2" id="greenColor" />绿色</label>
+	<label for="blueColor"><input type="radio" name="color" value="3" id="blueColor" />蓝色</label>
+	<label for="pinkColor"><input type="radio" name="color" value="4" id="pinkColor" />粉色</label>
+</fieldset>
+
+<h2>Element类型</h2>
+<div id="myDiv"></div>
+
+<script>
+//Document类型
+var typeDocument = {
+	_html: function(){
+		var html = document.documentElement;//取得对html的引用；all browser
+		console.log(html === document.childNodes[0]);
+		console.log(html === document.firstChild);
+		return html;
+	},
+	_body: function(){
+		return document.body;//取得对body的引用；all browser
+	},
+	_doctype: function(){
+		console.log(document.childNodes[0]); //<!--first comment-->
+		// console.log(document.childNodes[1]);
+		return document.doctype;//取得对!DOCTYPE的引用
+	},
+	docTitle: function(){
+		//获取文档信息
+		var originalTitle = document.title;
+		console.log(originalTitle);
+		document.title = "my new page";
+		console.log(document.title);
+	},
+	docDomain: function(){
+		var url = document.URL;//获取完整的URL
+		var domain = document.domain;//取得域名
+		var referrer = document.referrer; //获取来源页面的URL
+		console.log(url+'-'+domain+'-'+referrer);
+		//由于跨域安全限制 来自不同的子域的页面无法通过javascript通信，
+		//如果将每个页面的document.domain设置为相同的值，这些页面就可以互相访问对方包含的javascript对象了
+	},
+	queryElement: function(){
+		var a = document.getElementById('abc');
+		var lis = document.getElementsByTagName('li');
+		
+		var firstLi = lis[0]; // == b.item(0);
+		var nameLi = lis['searchDom']; // == b.namedItem('searchDom');
+		console.log(firstLi);
+		console.log(nameLi);
+		console.log(lis); //元素集合 HTMLCollection 有namedItem()方法
+
+		//取得文档中的所有元素
+		var alls = document.getElementsByTagName('*');
+		console.log(alls);
+
+		var radios = document.getElementsByName('color');
+		console.log(radios); //节点集合 NodeList 没有namedItem()方法
+
+		/** HTMLCollection原型与NodeList原型之间的关系 **/
+
+		//特殊集合
+		console.log(document.anchors); //所有带name特性的a元素
+		console.log(document.forms); //=>document.getElementsByTagName("form")
+		console.log(document.images); //=>document.getElementsByTagName("img")
+		console.log(document.links); //所有带href属性的a元素
+
+		//DOM一致性检测
+		var hasRange = document.implementation.hasFeature('Range','2.0');
+		console.log(hasRange);
+
+		document.writeln("<strong>"+(new Date()).toString()+"</strong>");
+		document.writeln("住在市中心");
+		document.write("住在市中心");
+		
+		document.write('<script type="text/javascript" src="file.js"><\/script>');
+
+		//window.onload = function(){
+		//	document.write("HELLO WORLD!");
+		//}
+
+	}
+}
+typeDocument._html();
+typeDocument._body();
+typeDocument._doctype();
+typeDocument.docTitle();
+typeDocument.docDomain();
+typeDocument.queryElement();
+
+//Element
+var typeElement = {
+	_div: function(){
+	//nodeType = 1
+	//nodeValue = null
+		var div = document.getElementById("myDiv");
+		console.log(div.constructor); //构造函数
+		console.log(div.nodeValue); //=>null
+		console.log(div.tagName == div.nodeName);
+		console.log(div.nodeName.toLowerCase());
+	}
+}
+typeElement._div();
+
+//Text
+
+//Comment
+
+//CDATASection
+
+//DocumentType
+
+//DocumentFragment
+
+//Attr
+
+</script>
+</body>
+</html>
+<!--last comment-->

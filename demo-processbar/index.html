@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta name="google" value="notranslate" /> 
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> 
+<meta name="renderer" content="webkit" /> 
+<meta charset="utf-8" /> 
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" /> 
+<meta name="format-detection" content="telephone=no" />
+<title></title>
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+<link rel="stylesheet" type="text/css" href="css/dialog_box.css" />
+</head>
+<body style="opacity:1;">
+<form class="normal_form dialog_box dialog_slide_into">
+	<div class="process-bar" id="processBar"></div>
+</form>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/process.js"></script>
+<script type="text/javascript">
+$(function() {
+    //初始化进度示意
+    var myProcessBar = new processBar($('#processBar'));
+    myProcessBar.prosItems = [{
+        "title": "建档"
+    }, {
+        "title": "邀约"
+    }, {
+        "title": "到店"
+    }, {
+        "title": "成交",
+        // "current": true
+    }, {
+        "title": "提车"
+	}];
+	myProcessBar.prosItems[2].current = true;
+	myProcessBar.init();
+});
+</script>
+</body>
+</html>

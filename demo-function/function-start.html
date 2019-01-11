@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Function start</title>
+  <style>
+    .msgBox {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      width: 242px;
+      background: #eee;
+    }
+
+    .msgBox p {
+      line-height: 1.5;
+      padding: 10px 20px;
+      color: #333;
+      padding-left: 82px;
+      background-position: 25px center;
+      background-repeat: no-repeat;
+    }
+
+    .msgBox button {
+      background: none;
+      border: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 1.1rem;
+      color: #aaa;
+    }
+
+    ul,li{list-style:none;}
+  </style>
+</head>
+<body>
+  <button>Display message box</button>
+
+  <button id="changeColor">Change color</button>
+  <button id="eventColor">Event color</button>
+  <ul>
+    <li>When I was young,</li>
+    <li>my homesickness was a small stamp,</li>
+    <li>I was here,</li>
+    <li>my mother was there.</li>
+    <li>After growing up,</li>
+    <li>my homesickness was a narrow ticket,</li>
+    <li>I was here,</li>
+    <li>my bride was there.</li>
+    <li>Later,</li>
+    <li>my homesickness was a little tomb,</li>
+    <li>I was outside,</li>
+    <li>my mother was inside.</li>
+    <li>And now,</li>
+    <li>my homesickness is a shallow strait,</li>
+    <li>I am here,</li>
+    <li>the mainland is there.</li>
+  </ul>
+  
+<script>
+  function displayMessage(msgText,msgType){
+
+    var html = document.querySelector('html');
+
+    var panel = document.createElement('div');
+    panel.setAttribute('class', 'msgBox');
+    html.appendChild(panel);
+
+    var msg = document.createElement('p');
+    msg.textContent = msgText;
+    if (msgType === 'warning') {
+      msg.style.backgroundImage = 'url(icons/warning.png)';
+      panel.style.backgroundColor = 'red';
+    } else if (msgType === 'chat') {
+      msg.style.backgroundImage = 'url(icons/chat.png)';
+      panel.style.backgroundColor = 'aqua';
+    } else {
+      msg.style.paddingLeft = '20px';
+    }
+    panel.appendChild(msg);
+
+    var closeBtn = document.createElement('button');
+    closeBtn.textContent = 'x';
+    panel.appendChild(closeBtn);
+
+    closeBtn.onclick = function() {
+      panel.parentNode.removeChild(panel);
+    }
+
+  }
+  var button = document.querySelector('button');
+  button.onclick = function(){
+    displayMessage('Woo! it`s cool!','warning');
+  };
+
+  var func1 = function(){
+      console.log('mybox1');
+  }
+  // func1();
+  var func2 = function setval(x){
+    return x<2?1:x*setval(x-1);
+  }
+  console.log(func2(4));
+
+
+  //定义一个map函数 并调用创建一个新数组
+  function map(f,a) {
+    var result = [],
+        i;
+
+    for (i = 0; i != a.length; i++)
+      result[i] = f(a[i]);
+    return result;
+  }
+
+  var numbers = [0,1, 2, 5,10];
+  var cube = numbers.map(function(x) {
+     return x * x * x;
+  });
+  console.log(cube);
+
+
+  //定义一个
+  var myobj = {
+      'tag1':'good',
+      'tag2':'great',
+      'tag3':'perfect'
+  }
+  var hehehe = valEach(myobj,function(x){
+    return '<'+x+'>';
+  });
+  console.log(hehehe);
+  function valEach(obj,f){
+    console.log(arguments);
+    var str = '',i;
+    for(var i in obj){
+      str += f(obj[i]);
+    }
+    return str;
+  }
+
+  //堆栈
+  function honey(n){
+    if(n<0) return;
+    console.log('begin:'+n);
+    honey(n-1);
+    console.log('end:'+n);
+  }
+  honey(3);
+
+
+  //执行环境创建的过程是由先后顺序的：参数声明 > 函数声明 > 变量声明
+  (function(){
+    console.log(typeof foo);
+    console.log(typeof info);
+
+    var foo = 'hello';
+    var info = function(){ console.log('hehe');};
+     function foo(){
+        console.log('nani');
+     }
+     console.log(foo);
+     // foo(); //error foo is not a function
+  })();
+
+  //事件处理器 事件监听器
+  (function(){
+    var mybutton = document.querySelector("#changeColor");
+    function random(number){
+      return Math.floor(Math.random()*(number+1));
+    }
+    function bgChange(){
+      var cor = 'rgb('+ random(255) +','+ random(255) +','+ random(255) +')';
+      document.body.style.backgroundColor = cor;
+    }
+    mybutton.onclick = bgChange;
+    
+    //在网页中使用事件监听器的方式
+    //事件处理器属性 btn.onclick = bgChange
+    //行内事件处理器 <button onclick="changeClick()"></button>
+    //btn.addEventListener('click', bgChange); btn.removeEventListener('click', bgChange);
+    //->可以给同一个监听器注册多个处理器
+    //->myElement.addEventListener('click', functionA);
+    //->myElement.addEventListener('click', functionB);
+
+    //事件对象 event或者e
+    var eventColor = document.querySelector("#eventColor");
+    eventColor.addEventListener('click',function(e){
+      console.log(arguments);
+      var cor = 'rgb('+ random(255) +','+ random(255) +','+ random(255) +')';
+      e.target.style.backgroundColor = cor;
+      console.log(e);
+    });
+
+    /*
+    var lis = document.querySelectorAll("li");
+    for(var i=0;i<lis.length;i++){
+      lis[i].onclick = function(e){
+        var cor = 'rgb('+ random(255) +','+ random(255) +','+ random(255) +')';
+        e.target.style.backgroundColor = cor;
+      }
+    }
+    */
+
+    //e.preventDefault();不执行默认行为
+    //e.stopPropagation();点击子元素时阻止事件冒泡防止父元素的事件被执行
+    //浏览器对事件的捕获阶段和冒泡阶段
+    //在现代浏览器中，默认情况下，所有事件处理程序都在冒泡阶段进行注册
+
+    //事件委托 将子元素li的事件通过冒泡的形式交由父元素ul来执行
+    var dUl = document.querySelector("ul");
+    dUl.onclick = function(e){
+      var eDom = e.target || e.srcElement;
+      if(eDom && eDom.nodeName.toLowerCase() == "li"){
+        console.log(eDom.innerHTML);
+        console.log("List item ", eDom.innerHTML, " was clicked!");
+      }
+    }
+
+    //arguments对象是所有（非箭头）函数中都可用的局部变量
+    function st(a,b,c,d){
+      console.log(arguments);
+      console.log(arguments.length);
+      var arg = Array.prototype.slice.call(arguments);
+      console.log(arg);
+    }
+    st('showtag','1',{"name":"hhh"},function(a){console.log(a);},function(b){console.log(b);});
+
+    //剩余参数、默认参数和解构赋值参数
+    //.....
+  })();
+
+</script>
+</body>
+</html>

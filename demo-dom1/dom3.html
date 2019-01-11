@@ -1,0 +1,53 @@
+<html>
+<head>
+<meta charset="utf-8" />
+<title>dom 操作页面元素</title>
+</head>
+<body>
+	<button onclick="centerImg();">图片居中显示</button>
+	<h4>查找文章中的img元素 并将查找到的图片居中显示</h4>
+	第一段文字及图片
+	<div>这是一只小喵咪，是不是很可爱～<img src="miao01.jpg" /></div>
+	第二段文字及图片
+	<div>  <img src="miao02.jpg" /></div>
+	还有没有第三张喵咪～
+	嗯嗯嗯 
+	我想念招财啦，招财是以前的室友养的一只加菲喵，肥肥的，很粘人，睡觉的时候会发出咕噜咕噜的声音。
+	<img src="miao02.jpg" />
+<script>
+var utils = {
+	isDIV: function(dom){
+		return dom.nodeName == 'DIV'? true: false;
+	},
+	replaceEmpty: function(str){
+		return str.replace(/^\s+|\s+$/g,'');
+	},
+	setImgCenter: function(node){
+		var newdiv = document.createElement('div');
+			newdiv.style.textAlign = 'center';
+			newdiv.appendChild(node.cloneNode());
+		node.parentNode.replaceChild(newdiv,node);
+	}
+}
+function centerImg(){
+	var imgs = document.getElementsByTagName('img');
+	// console.log(imgs);
+	for(var i=0;i<imgs.length;i++){
+		if(utils.isDIV(imgs[i].parentNode)){
+			var prevnode = imgs[i].previousSibling,
+				nextnode = imgs[i].nextSibling;
+			var previsNdv = prevnode!=null? (prevnode.nodeType!=3?prevnode.innerHTML:prevnode.nodeValue):'';
+                        var nextisNdv = nextnode!=null? (nextnode.nodeType!=3?nextnode.innerHTML:nextnode.nodeValue):'';
+			if((previsNdv!=''&& previsNdv!='<br>') || (nextisNdv !=''&& nextisNdv !='<br>')){
+				utils.setImgCenter(imgs[i]);
+			}else{
+				imgs[i].parentNode.style.textAlign = 'center';
+			}
+		}else{
+			utils.setImgCenter(imgs[i]);
+		}
+	}
+}
+</script>
+</body>
+</html>

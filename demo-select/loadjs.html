@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <input type="text" name="number" id="number" value="" />
+    <p id="info"></p>
+    <input type="button" name="" id="btn" value="查询" />
+
+    <script src='js/jquery.js'></script>
+    <script type="text/javascript">
+        var btn = document.getElementById("btn");
+        var numbers = document.getElementById("number");
+        var info = document.getElementById("info");
+        // btn.onclick = function() {
+        var value = numbers.value;
+        var script = document.createElement("script");
+        script.src = "http://brandcheyun.caridcc.com/index/ajax/javascript?callback=show";
+        document.body.appendChild(script);
+        // }
+
+        function show(_result) { // 插入数据
+            var script = document.createElement("script");
+            script.type = "text\/javascript";
+            script.innerHTML = "window.mydata=" + JSON.stringify(_result);
+            document.getElementsByTagName('head')[0].appendChild(script);
+            // $('html head').eq(0).append('<script type="text\/javascript">window.mydata=' + JSON.stringify(_result) + '<\/script>');
+            setTimeout(function() {
+                console.log(window.mydata);
+            }, 1000)
+
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>使用rem</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <script type="text/javascript">
+        (function(doc, win) {
+            var docEl = win.document.documentElement;
+            var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+            var refreshRem = function() {
+                var clientWidth = win.innerWidth ||
+                    doc.documentElement.clientWidth ||
+                    doc.body.clientWidth;
+                if (!clientWidth) return;
+                var fz;
+                var width = clientWidth;
+                var dpr = win.devicePixelRatio;
+                if (width / dpr > 320) {
+                    width = 320 * dpr;
+                }
+                fz = 16 * width / 375;
+                docEl.style.fontSize = fz + 'px';
+            };
+
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, refreshRem, false);
+            doc.addEventListener('DOMContentLoaded', refreshRem, false);
+            refreshRem();
+        })(document, window);
+    </script>
+</head>
+
+<body>
+    <div id="bask">
+    </div>
+</body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.6.5/svg.min.js"></script>
+<script type="text/javascript">
+    (function() {
+        var browser = function() {
+            return {
+                mobile: window.navigator.userAgent.toLowerCase().match(/iphone|ipad|ios|android|ipod/) ? true : false
+            }
+        }();
+        if (!browser.mobile) {
+            console.log('PC端不显示！！！');
+            return false;
+        };
+        var baseW, baseH, whV, bgSrc;
+        if (screen.width == 375 && screen.height == 812) {
+            baseW = 375, baseH = 812;
+            bgSrc = "images/bg2.png";
+        } else {
+            baseW = 540, baseH = 960;
+            bgSrc = "images/bg.png";
+        }
+        whV = (baseH / baseW).toFixed(2);
+
+        var svgWidth = document.body.clientWidth;
+        var svgHeight = svgWidth * whV;
+
+        function getsize(w, h) {
+            return {
+                width: w / baseW * svgWidth,
+                height: h / baseH * svgHeight,
+            }
+        }
+        //时间倒计时
+
+        //左侧指针
+
+        //画布
+        var draw = SVG("bask").size(svgWidth, svgHeight);
+
+        //背景
+        var image = draw.image(bgSrc).size("100%", "100%").loaded(function(loader) {
+            // this.size(loader.width, loader.height) //自然宽高
+        });
+
+        //元素A 动态人
+        var sizeA = getsize(180, 350);
+        var peopleA = draw.image('images/people-A.png').size(sizeA.width, sizeA.height)
+            .move((svgWidth - sizeA.width) / 2, svgHeight - sizeA.height);
+
+        //元素B 篮筐
+        var size_topA = getsize(200, 160);
+        var topA = draw.image('images/top-A.png').size(size_topA.width, size_topA.height)
+            .move((svgWidth - size_topA.width) / 2, 0);
+
+        //动作轨迹1,2,3,4,5,6
+
+        //手势触摸元素开始动态
+    })()
+</script>
+
+</html>
