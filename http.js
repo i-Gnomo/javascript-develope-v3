@@ -40,4 +40,19 @@ var server = http.createServer(function(request, response) {
     });
 });
 server.listen(PORT);
+
+//创建线程 执行再浏览器打开网址的命令
+var exec= require('child_process').exec;
+var myurl = 'http://localhost:3030/index.html';
+switch (process.platform) {
+    case "darwin":
+        exec('open ' + myurl);
+        break;
+    case "win32":
+        exec('start ' + myurl);
+        break;
+    default:
+        exec('xdg-open', myurl);
+}
+//nightmarejs
 console.log("Server runing at port: " + PORT + ". url: http://localhost:3030/index.html");
