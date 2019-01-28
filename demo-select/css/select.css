@@ -608,3 +608,18 @@ input {
   cursor: not-allowed;
   color: #aaaaaa;
 }
+
+.select-defined .select-clear {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  text-indent: 0;
+  padding: 0 10px;
+  font-size: 14px;
+}
+
+.select-defined .select-clear:hover {
+  color: #205aa4;
+  text-shadow: 0 0 2px #2982cc;
+}

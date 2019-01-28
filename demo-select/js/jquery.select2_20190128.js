@@ -195,10 +195,6 @@
                 if ($.isFunction(selectCbk)) {
                     zselect.off('selectCbk').on('selectCbk', selectCbk);
                 }
-                zselect.find('.select-clear').off('click').on('click',function(){
-                    _v.clearGroupVal();
-                    zselect.removeClass('active');
-                });
                 _v.hasClass('disabled') ? zselect.addClass('disabled') : zselect.removeClass('disabled');
 
                 if (!opts || !opts.length) { return _v; }
@@ -243,7 +239,7 @@
                 );
                 x.push('<a href="javascript:void(0)">' + tit[i - 1] + '</a></li>');
             }
-            x.push('</ul><div class="select-clear">×</div>');
+            x.push('</ul>');
             return x.join('');
         },
         oGetSelect: function() {
