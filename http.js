@@ -8,7 +8,7 @@ var path = require('path');
 
 var server = http.createServer(function(request, response) {
     var pathname = url.parse(request.url).pathname;
-    var realPath = path.join("demo-select", pathname); //这里设置自己的文件名称;
+    var realPath = path.join("demo-mapbox", pathname); //这里设置自己的文件名称;
 
     var ext = path.extname(realPath);
     ext = ext ? ext.slice(1) : 'unknown';
@@ -43,7 +43,7 @@ server.listen(PORT);
 
 //创建线程 执行再浏览器打开网址的命令
 var exec= require('child_process').exec;
-var myurl = 'http://localhost:3030/index.html';
+var myurl = 'http://localhost:3030/guide_map.html';
 switch (process.platform) {
     case "darwin":
         exec('open ' + myurl);
@@ -55,4 +55,4 @@ switch (process.platform) {
         exec('xdg-open', myurl);
 }
 //nightmarejs
-console.log("Server runing at port: " + PORT + ". url: http://localhost:3030/index.html");
+console.log("Server runing at port: " + PORT + ". url: http://localhost:3030/guide_map.html");
